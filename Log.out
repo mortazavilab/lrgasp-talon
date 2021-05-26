@@ -1,0 +1,720 @@
+STAR version=2.7.9a
+STAR compilation time,server,dir=2021-05-04T09:43:56-0400 vega:/home/dobin/data/STAR/STARcode/STAR.master/source
+##### Command Line:
+STAR --runMode genomeGenerate --runThreadN 8 --genomeDir data/processed/star_index --genomeFastaFiles data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta --sjdbOverhang 100 --sjdbGTFfile data/raw/lrgasp/references/lrgasp_gencode_v38_sirvs.gtf
+##### Initial USER parameters from Command Line:
+###### All USER parameters from Command Line:
+runMode                       genomeGenerate        ~RE-DEFINED
+runThreadN                    8     ~RE-DEFINED
+genomeDir                     data/processed/star_index     ~RE-DEFINED
+genomeFastaFiles              data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta        ~RE-DEFINED
+sjdbOverhang                  100     ~RE-DEFINED
+sjdbGTFfile                   data/raw/lrgasp/references/lrgasp_gencode_v38_sirvs.gtf     ~RE-DEFINED
+##### Finished reading parameters from all sources
+
+##### Final user re-defined parameters-----------------:
+runMode                           genomeGenerate   
+runThreadN                        8
+genomeDir                         data/processed/star_index
+genomeFastaFiles                  data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta   
+sjdbGTFfile                       data/raw/lrgasp/references/lrgasp_gencode_v38_sirvs.gtf
+sjdbOverhang                      100
+
+-------------------------------
+##### Final effective command line:
+STAR   --runMode genomeGenerate      --runThreadN 8   --genomeDir data/processed/star_index   --genomeFastaFiles data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta      --sjdbGTFfile data/raw/lrgasp/references/lrgasp_gencode_v38_sirvs.gtf   --sjdbOverhang 100
+----------------------------------------
+
+Number of fastq files for each mate = 1
+ParametersSolo: --soloCellFilterType CellRanger2.2 filtering parameters:  3000 0.99 10
+Finished loading and checking parameters
+--genomeDir directory exists and will be overwritten: data/processed/star_index/
+!!!!! WARNING: Could not move Log.out file from ./Log.out into data/processed/star_index/Log.out. Will keep ./Log.out
+
+May 24 20:04:32 ... starting to generate Genome files
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 0  "chr1" chrStart: 0
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 1  "chr2" chrStart: 249036800
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 2  "chr3" chrStart: 491257856
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 3  "chr4" chrStart: 689700864
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 4  "chr5" chrStart: 880017408
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 5  "chr6" chrStart: 1061683200
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 6  "chr7" chrStart: 1232601088
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 7  "chr8" chrStart: 1391984640
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 8  "chr9" chrStart: 1537212416
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 9  "chr10" chrStart: 1675624448
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 10  "chr11" chrStart: 1809580032
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 11  "chr12" chrStart: 1944846336
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 12  "chr13" chrStart: 2078277632
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 13  "chr14" chrStart: 2192834560
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 14  "chr15" chrStart: 2300051456
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 15  "chr16" chrStart: 2402287616
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 16  "chr17" chrStart: 2492727296
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 17  "chr18" chrStart: 2576089088
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 18  "chr19" chrStart: 2656567296
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 19  "chr20" chrStart: 2715287552
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 20  "chr21" chrStart: 2779774976
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 21  "chr22" chrStart: 2826698752
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 22  "chrX" chrStart: 2877554688
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 23  "chrY" chrStart: 3033792512
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 24  "chrM" chrStart: 3091202048
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 25  "chr1_KI270706v1_random" chrStart: 3091464192
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 26  "chr1_KI270707v1_random" chrStart: 3091726336
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 27  "chr1_KI270708v1_random" chrStart: 3091988480
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 28  "chr1_KI270709v1_random" chrStart: 3092250624
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 29  "chr1_KI270710v1_random" chrStart: 3092512768
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 30  "chr1_KI270711v1_random" chrStart: 3092774912
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 31  "chr1_KI270712v1_random" chrStart: 3093037056
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 32  "chr1_KI270713v1_random" chrStart: 3093299200
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 33  "chr1_KI270714v1_random" chrStart: 3093561344
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 34  "chr2_KI270715v1_random" chrStart: 3093823488
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 35  "chr2_KI270716v1_random" chrStart: 3094085632
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 36  "chr3_GL000221v1_random" chrStart: 3094347776
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 37  "chr4_GL000008v2_random" chrStart: 3094609920
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 38  "chr5_GL000208v1_random" chrStart: 3094872064
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 39  "chr9_KI270717v1_random" chrStart: 3095134208
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 40  "chr9_KI270718v1_random" chrStart: 3095396352
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 41  "chr9_KI270719v1_random" chrStart: 3095658496
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 42  "chr9_KI270720v1_random" chrStart: 3095920640
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 43  "chr11_KI270721v1_random" chrStart: 3096182784
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 44  "chr14_GL000009v2_random" chrStart: 3096444928
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 45  "chr14_GL000225v1_random" chrStart: 3096707072
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 46  "chr14_KI270722v1_random" chrStart: 3096969216
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 47  "chr14_GL000194v1_random" chrStart: 3097231360
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 48  "chr14_KI270723v1_random" chrStart: 3097493504
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 49  "chr14_KI270724v1_random" chrStart: 3097755648
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 50  "chr14_KI270725v1_random" chrStart: 3098017792
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 51  "chr14_KI270726v1_random" chrStart: 3098279936
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 52  "chr15_KI270727v1_random" chrStart: 3098542080
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 53  "chr16_KI270728v1_random" chrStart: 3099066368
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 54  "chr17_GL000205v2_random" chrStart: 3101163520
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 55  "chr17_KI270729v1_random" chrStart: 3101425664
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 56  "chr17_KI270730v1_random" chrStart: 3101949952
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 57  "chr22_KI270731v1_random" chrStart: 3102212096
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 58  "chr22_KI270732v1_random" chrStart: 3102474240
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 59  "chr22_KI270733v1_random" chrStart: 3102736384
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 60  "chr22_KI270734v1_random" chrStart: 3102998528
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 61  "chr22_KI270735v1_random" chrStart: 3103260672
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 62  "chr22_KI270736v1_random" chrStart: 3103522816
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 63  "chr22_KI270737v1_random" chrStart: 3103784960
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 64  "chr22_KI270738v1_random" chrStart: 3104047104
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 65  "chr22_KI270739v1_random" chrStart: 3104309248
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 66  "chrY_KI270740v1_random" chrStart: 3104571392
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 67  "chrUn_KI270302v1" chrStart: 3104833536
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 68  "chrUn_KI270304v1" chrStart: 3105095680
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 69  "chrUn_KI270303v1" chrStart: 3105357824
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 70  "chrUn_KI270305v1" chrStart: 3105619968
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 71  "chrUn_KI270322v1" chrStart: 3105882112
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 72  "chrUn_KI270320v1" chrStart: 3106144256
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 73  "chrUn_KI270310v1" chrStart: 3106406400
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 74  "chrUn_KI270316v1" chrStart: 3106668544
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 75  "chrUn_KI270315v1" chrStart: 3106930688
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 76  "chrUn_KI270312v1" chrStart: 3107192832
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 77  "chrUn_KI270311v1" chrStart: 3107454976
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 78  "chrUn_KI270317v1" chrStart: 3107717120
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 79  "chrUn_KI270412v1" chrStart: 3107979264
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 80  "chrUn_KI270411v1" chrStart: 3108241408
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 81  "chrUn_KI270414v1" chrStart: 3108503552
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 82  "chrUn_KI270419v1" chrStart: 3108765696
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 83  "chrUn_KI270418v1" chrStart: 3109027840
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 84  "chrUn_KI270420v1" chrStart: 3109289984
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 85  "chrUn_KI270424v1" chrStart: 3109552128
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 86  "chrUn_KI270417v1" chrStart: 3109814272
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 87  "chrUn_KI270422v1" chrStart: 3110076416
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 88  "chrUn_KI270423v1" chrStart: 3110338560
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 89  "chrUn_KI270425v1" chrStart: 3110600704
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 90  "chrUn_KI270429v1" chrStart: 3110862848
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 91  "chrUn_KI270442v1" chrStart: 3111124992
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 92  "chrUn_KI270466v1" chrStart: 3111649280
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 93  "chrUn_KI270465v1" chrStart: 3111911424
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 94  "chrUn_KI270467v1" chrStart: 3112173568
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 95  "chrUn_KI270435v1" chrStart: 3112435712
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 96  "chrUn_KI270438v1" chrStart: 3112697856
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 97  "chrUn_KI270468v1" chrStart: 3112960000
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 98  "chrUn_KI270510v1" chrStart: 3113222144
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 99  "chrUn_KI270509v1" chrStart: 3113484288
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 100  "chrUn_KI270518v1" chrStart: 3113746432
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 101  "chrUn_KI270508v1" chrStart: 3114008576
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 102  "chrUn_KI270516v1" chrStart: 3114270720
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 103  "chrUn_KI270512v1" chrStart: 3114532864
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 104  "chrUn_KI270519v1" chrStart: 3114795008
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 105  "chrUn_KI270522v1" chrStart: 3115057152
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 106  "chrUn_KI270511v1" chrStart: 3115319296
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 107  "chrUn_KI270515v1" chrStart: 3115581440
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 108  "chrUn_KI270507v1" chrStart: 3115843584
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 109  "chrUn_KI270517v1" chrStart: 3116105728
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 110  "chrUn_KI270529v1" chrStart: 3116367872
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 111  "chrUn_KI270528v1" chrStart: 3116630016
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 112  "chrUn_KI270530v1" chrStart: 3116892160
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 113  "chrUn_KI270539v1" chrStart: 3117154304
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 114  "chrUn_KI270538v1" chrStart: 3117416448
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 115  "chrUn_KI270544v1" chrStart: 3117678592
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 116  "chrUn_KI270548v1" chrStart: 3117940736
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 117  "chrUn_KI270583v1" chrStart: 3118202880
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 118  "chrUn_KI270587v1" chrStart: 3118465024
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 119  "chrUn_KI270580v1" chrStart: 3118727168
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 120  "chrUn_KI270581v1" chrStart: 3118989312
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 121  "chrUn_KI270579v1" chrStart: 3119251456
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 122  "chrUn_KI270589v1" chrStart: 3119513600
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 123  "chrUn_KI270590v1" chrStart: 3119775744
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 124  "chrUn_KI270584v1" chrStart: 3120037888
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 125  "chrUn_KI270582v1" chrStart: 3120300032
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 126  "chrUn_KI270588v1" chrStart: 3120562176
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 127  "chrUn_KI270593v1" chrStart: 3120824320
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 128  "chrUn_KI270591v1" chrStart: 3121086464
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 129  "chrUn_KI270330v1" chrStart: 3121348608
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 130  "chrUn_KI270329v1" chrStart: 3121610752
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 131  "chrUn_KI270334v1" chrStart: 3121872896
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 132  "chrUn_KI270333v1" chrStart: 3122135040
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 133  "chrUn_KI270335v1" chrStart: 3122397184
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 134  "chrUn_KI270338v1" chrStart: 3122659328
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 135  "chrUn_KI270340v1" chrStart: 3122921472
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 136  "chrUn_KI270336v1" chrStart: 3123183616
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 137  "chrUn_KI270337v1" chrStart: 3123445760
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 138  "chrUn_KI270363v1" chrStart: 3123707904
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 139  "chrUn_KI270364v1" chrStart: 3123970048
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 140  "chrUn_KI270362v1" chrStart: 3124232192
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 141  "chrUn_KI270366v1" chrStart: 3124494336
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 142  "chrUn_KI270378v1" chrStart: 3124756480
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 143  "chrUn_KI270379v1" chrStart: 3125018624
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 144  "chrUn_KI270389v1" chrStart: 3125280768
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 145  "chrUn_KI270390v1" chrStart: 3125542912
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 146  "chrUn_KI270387v1" chrStart: 3125805056
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 147  "chrUn_KI270395v1" chrStart: 3126067200
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 148  "chrUn_KI270396v1" chrStart: 3126329344
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 149  "chrUn_KI270388v1" chrStart: 3126591488
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 150  "chrUn_KI270394v1" chrStart: 3126853632
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 151  "chrUn_KI270386v1" chrStart: 3127115776
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 152  "chrUn_KI270391v1" chrStart: 3127377920
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 153  "chrUn_KI270383v1" chrStart: 3127640064
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 154  "chrUn_KI270393v1" chrStart: 3127902208
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 155  "chrUn_KI270384v1" chrStart: 3128164352
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 156  "chrUn_KI270392v1" chrStart: 3128426496
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 157  "chrUn_KI270381v1" chrStart: 3128688640
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 158  "chrUn_KI270385v1" chrStart: 3128950784
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 159  "chrUn_KI270382v1" chrStart: 3129212928
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 160  "chrUn_KI270376v1" chrStart: 3129475072
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 161  "chrUn_KI270374v1" chrStart: 3129737216
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 162  "chrUn_KI270372v1" chrStart: 3129999360
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 163  "chrUn_KI270373v1" chrStart: 3130261504
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 164  "chrUn_KI270375v1" chrStart: 3130523648
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 165  "chrUn_KI270371v1" chrStart: 3130785792
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 166  "chrUn_KI270448v1" chrStart: 3131047936
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 167  "chrUn_KI270521v1" chrStart: 3131310080
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 168  "chrUn_GL000195v1" chrStart: 3131572224
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 169  "chrUn_GL000219v1" chrStart: 3131834368
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 170  "chrUn_GL000220v1" chrStart: 3132096512
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 171  "chrUn_GL000224v1" chrStart: 3132358656
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 172  "chrUn_KI270741v1" chrStart: 3132620800
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 173  "chrUn_GL000226v1" chrStart: 3132882944
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 174  "chrUn_GL000213v1" chrStart: 3133145088
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 175  "chrUn_KI270743v1" chrStart: 3133407232
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 176  "chrUn_KI270744v1" chrStart: 3133669376
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 177  "chrUn_KI270745v1" chrStart: 3133931520
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 178  "chrUn_KI270746v1" chrStart: 3134193664
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 179  "chrUn_KI270747v1" chrStart: 3134455808
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 180  "chrUn_KI270748v1" chrStart: 3134717952
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 181  "chrUn_KI270749v1" chrStart: 3134980096
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 182  "chrUn_KI270750v1" chrStart: 3135242240
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 183  "chrUn_KI270751v1" chrStart: 3135504384
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 184  "chrUn_KI270752v1" chrStart: 3135766528
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 185  "chrUn_KI270753v1" chrStart: 3136028672
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 186  "chrUn_KI270754v1" chrStart: 3136290816
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 187  "chrUn_KI270755v1" chrStart: 3136552960
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 188  "chrUn_KI270756v1" chrStart: 3136815104
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 189  "chrUn_KI270757v1" chrStart: 3137077248
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 190  "chrUn_GL000214v1" chrStart: 3137339392
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 191  "chrUn_KI270742v1" chrStart: 3137601536
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 192  "chrUn_GL000216v2" chrStart: 3137863680
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 193  "chrUn_GL000218v1" chrStart: 3138125824
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 194  "chrEBV" chrStart: 3138387968
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 195  "ERCC-00002" chrStart: 3138650112
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 196  "ERCC-00003" chrStart: 3138912256
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 197  "ERCC-00004" chrStart: 3139174400
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 198  "ERCC-00009" chrStart: 3139436544
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 199  "ERCC-00012" chrStart: 3139698688
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 200  "ERCC-00013" chrStart: 3139960832
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 201  "ERCC-00014" chrStart: 3140222976
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 202  "ERCC-00016" chrStart: 3140485120
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 203  "ERCC-00017" chrStart: 3140747264
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 204  "ERCC-00019" chrStart: 3141009408
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 205  "ERCC-00022" chrStart: 3141271552
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 206  "ERCC-00024" chrStart: 3141533696
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 207  "ERCC-00025" chrStart: 3141795840
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 208  "ERCC-00028" chrStart: 3142057984
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 209  "ERCC-00031" chrStart: 3142320128
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 210  "ERCC-00033" chrStart: 3142582272
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 211  "ERCC-00034" chrStart: 3142844416
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 212  "ERCC-00035" chrStart: 3143106560
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 213  "ERCC-00039" chrStart: 3143368704
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 214  "ERCC-00040" chrStart: 3143630848
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 215  "ERCC-00041" chrStart: 3143892992
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 216  "ERCC-00042" chrStart: 3144155136
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 217  "ERCC-00043" chrStart: 3144417280
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 218  "ERCC-00044" chrStart: 3144679424
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 219  "ERCC-00046" chrStart: 3144941568
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 220  "ERCC-00048" chrStart: 3145203712
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 221  "ERCC-00051" chrStart: 3145465856
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 222  "ERCC-00053" chrStart: 3145728000
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 223  "ERCC-00054" chrStart: 3145990144
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 224  "ERCC-00057" chrStart: 3146252288
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 225  "ERCC-00058" chrStart: 3146514432
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 226  "ERCC-00059" chrStart: 3146776576
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 227  "ERCC-00060" chrStart: 3147038720
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 228  "ERCC-00061" chrStart: 3147300864
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 229  "ERCC-00062" chrStart: 3147563008
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 230  "ERCC-00067" chrStart: 3147825152
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 231  "ERCC-00069" chrStart: 3148087296
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 232  "ERCC-00071" chrStart: 3148349440
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 233  "ERCC-00073" chrStart: 3148611584
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 234  "ERCC-00074" chrStart: 3148873728
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 235  "ERCC-00075" chrStart: 3149135872
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 236  "ERCC-00076" chrStart: 3149398016
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 237  "ERCC-00077" chrStart: 3149660160
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 238  "ERCC-00078" chrStart: 3149922304
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 239  "ERCC-00079" chrStart: 3150184448
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 240  "ERCC-00081" chrStart: 3150446592
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 241  "ERCC-00083" chrStart: 3150708736
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 242  "ERCC-00084" chrStart: 3150970880
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 243  "ERCC-00085" chrStart: 3151233024
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 244  "ERCC-00086" chrStart: 3151495168
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 245  "ERCC-00092" chrStart: 3151757312
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 246  "ERCC-00095" chrStart: 3152019456
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 247  "ERCC-00096" chrStart: 3152281600
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 248  "ERCC-00097" chrStart: 3152543744
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 249  "ERCC-00098" chrStart: 3152805888
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 250  "ERCC-00099" chrStart: 3153068032
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 251  "ERCC-00104" chrStart: 3153330176
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 252  "ERCC-00108" chrStart: 3153592320
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 253  "ERCC-00109" chrStart: 3153854464
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 254  "ERCC-00111" chrStart: 3154116608
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 255  "ERCC-00112" chrStart: 3154378752
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 256  "ERCC-00113" chrStart: 3154640896
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 257  "ERCC-00116" chrStart: 3154903040
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 258  "ERCC-00117" chrStart: 3155165184
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 259  "ERCC-00120" chrStart: 3155427328
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 260  "ERCC-00123" chrStart: 3155689472
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 261  "ERCC-00126" chrStart: 3155951616
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 262  "ERCC-00130" chrStart: 3156213760
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 263  "ERCC-00131" chrStart: 3156475904
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 264  "ERCC-00134" chrStart: 3156738048
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 265  "ERCC-00136" chrStart: 3157000192
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 266  "ERCC-00137" chrStart: 3157262336
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 267  "ERCC-00138" chrStart: 3157524480
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 268  "ERCC-00142" chrStart: 3157786624
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 269  "ERCC-00143" chrStart: 3158048768
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 270  "ERCC-00144" chrStart: 3158310912
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 271  "ERCC-00145" chrStart: 3158573056
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 272  "ERCC-00147" chrStart: 3158835200
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 273  "ERCC-00148" chrStart: 3159097344
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 274  "ERCC-00150" chrStart: 3159359488
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 275  "ERCC-00154" chrStart: 3159621632
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 276  "ERCC-00156" chrStart: 3159883776
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 277  "ERCC-00157" chrStart: 3160145920
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 278  "ERCC-00158" chrStart: 3160408064
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 279  "ERCC-00160" chrStart: 3160670208
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 280  "ERCC-00162" chrStart: 3160932352
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 281  "ERCC-00163" chrStart: 3161194496
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 282  "ERCC-00164" chrStart: 3161456640
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 283  "ERCC-00165" chrStart: 3161718784
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 284  "ERCC-00168" chrStart: 3161980928
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 285  "ERCC-00170" chrStart: 3162243072
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 286  "ERCC-00171" chrStart: 3162505216
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 287  "SIRV1" chrStart: 3162767360
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 288  "SIRV2" chrStart: 3163029504
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 289  "SIRV3" chrStart: 3163291648
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 290  "SIRV4" chrStart: 3163553792
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 291  "SIRV5" chrStart: 3163815936
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 292  "SIRV6" chrStart: 3164078080
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 293  "SIRV7" chrStart: 3164340224
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 294  "SIRV4001" chrStart: 3164602368
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 295  "SIRV4002" chrStart: 3164864512
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 296  "SIRV4003" chrStart: 3165126656
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 297  "SIRV6001" chrStart: 3165388800
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 298  "SIRV6002" chrStart: 3165650944
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 299  "SIRV6003" chrStart: 3165913088
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 300  "SIRV8001" chrStart: 3166175232
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 301  "SIRV8002" chrStart: 3166437376
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 302  "SIRV8003" chrStart: 3166699520
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 303  "SIRV10001" chrStart: 3166961664
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 304  "SIRV10002" chrStart: 3167223808
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 305  "SIRV10003" chrStart: 3167485952
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 306  "SIRV12001" chrStart: 3167748096
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 307  "SIRV12002" chrStart: 3168010240
+data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta : chr # 308  "SIRV12003" chrStart: 3168272384
+Chromosome sequence lengths: 
+chr1	248956422
+chr2	242193529
+chr3	198295559
+chr4	190214555
+chr5	181538259
+chr6	170805979
+chr7	159345973
+chr8	145138636
+chr9	138394717
+chr10	133797422
+chr11	135086622
+chr12	133275309
+chr13	114364328
+chr14	107043718
+chr15	101991189
+chr16	90338345
+chr17	83257441
+chr18	80373285
+chr19	58617616
+chr20	64444167
+chr21	46709983
+chr22	50818468
+chrX	156040895
+chrY	57227415
+chrM	16569
+chr1_KI270706v1_random	175055
+chr1_KI270707v1_random	32032
+chr1_KI270708v1_random	127682
+chr1_KI270709v1_random	66860
+chr1_KI270710v1_random	40176
+chr1_KI270711v1_random	42210
+chr1_KI270712v1_random	176043
+chr1_KI270713v1_random	40745
+chr1_KI270714v1_random	41717
+chr2_KI270715v1_random	161471
+chr2_KI270716v1_random	153799
+chr3_GL000221v1_random	155397
+chr4_GL000008v2_random	209709
+chr5_GL000208v1_random	92689
+chr9_KI270717v1_random	40062
+chr9_KI270718v1_random	38054
+chr9_KI270719v1_random	176845
+chr9_KI270720v1_random	39050
+chr11_KI270721v1_random	100316
+chr14_GL000009v2_random	201709
+chr14_GL000225v1_random	211173
+chr14_KI270722v1_random	194050
+chr14_GL000194v1_random	191469
+chr14_KI270723v1_random	38115
+chr14_KI270724v1_random	39555
+chr14_KI270725v1_random	172810
+chr14_KI270726v1_random	43739
+chr15_KI270727v1_random	448248
+chr16_KI270728v1_random	1872759
+chr17_GL000205v2_random	185591
+chr17_KI270729v1_random	280839
+chr17_KI270730v1_random	112551
+chr22_KI270731v1_random	150754
+chr22_KI270732v1_random	41543
+chr22_KI270733v1_random	179772
+chr22_KI270734v1_random	165050
+chr22_KI270735v1_random	42811
+chr22_KI270736v1_random	181920
+chr22_KI270737v1_random	103838
+chr22_KI270738v1_random	99375
+chr22_KI270739v1_random	73985
+chrY_KI270740v1_random	37240
+chrUn_KI270302v1	2274
+chrUn_KI270304v1	2165
+chrUn_KI270303v1	1942
+chrUn_KI270305v1	1472
+chrUn_KI270322v1	21476
+chrUn_KI270320v1	4416
+chrUn_KI270310v1	1201
+chrUn_KI270316v1	1444
+chrUn_KI270315v1	2276
+chrUn_KI270312v1	998
+chrUn_KI270311v1	12399
+chrUn_KI270317v1	37690
+chrUn_KI270412v1	1179
+chrUn_KI270411v1	2646
+chrUn_KI270414v1	2489
+chrUn_KI270419v1	1029
+chrUn_KI270418v1	2145
+chrUn_KI270420v1	2321
+chrUn_KI270424v1	2140
+chrUn_KI270417v1	2043
+chrUn_KI270422v1	1445
+chrUn_KI270423v1	981
+chrUn_KI270425v1	1884
+chrUn_KI270429v1	1361
+chrUn_KI270442v1	392061
+chrUn_KI270466v1	1233
+chrUn_KI270465v1	1774
+chrUn_KI270467v1	3920
+chrUn_KI270435v1	92983
+chrUn_KI270438v1	112505
+chrUn_KI270468v1	4055
+chrUn_KI270510v1	2415
+chrUn_KI270509v1	2318
+chrUn_KI270518v1	2186
+chrUn_KI270508v1	1951
+chrUn_KI270516v1	1300
+chrUn_KI270512v1	22689
+chrUn_KI270519v1	138126
+chrUn_KI270522v1	5674
+chrUn_KI270511v1	8127
+chrUn_KI270515v1	6361
+chrUn_KI270507v1	5353
+chrUn_KI270517v1	3253
+chrUn_KI270529v1	1899
+chrUn_KI270528v1	2983
+chrUn_KI270530v1	2168
+chrUn_KI270539v1	993
+chrUn_KI270538v1	91309
+chrUn_KI270544v1	1202
+chrUn_KI270548v1	1599
+chrUn_KI270583v1	1400
+chrUn_KI270587v1	2969
+chrUn_KI270580v1	1553
+chrUn_KI270581v1	7046
+chrUn_KI270579v1	31033
+chrUn_KI270589v1	44474
+chrUn_KI270590v1	4685
+chrUn_KI270584v1	4513
+chrUn_KI270582v1	6504
+chrUn_KI270588v1	6158
+chrUn_KI270593v1	3041
+chrUn_KI270591v1	5796
+chrUn_KI270330v1	1652
+chrUn_KI270329v1	1040
+chrUn_KI270334v1	1368
+chrUn_KI270333v1	2699
+chrUn_KI270335v1	1048
+chrUn_KI270338v1	1428
+chrUn_KI270340v1	1428
+chrUn_KI270336v1	1026
+chrUn_KI270337v1	1121
+chrUn_KI270363v1	1803
+chrUn_KI270364v1	2855
+chrUn_KI270362v1	3530
+chrUn_KI270366v1	8320
+chrUn_KI270378v1	1048
+chrUn_KI270379v1	1045
+chrUn_KI270389v1	1298
+chrUn_KI270390v1	2387
+chrUn_KI270387v1	1537
+chrUn_KI270395v1	1143
+chrUn_KI270396v1	1880
+chrUn_KI270388v1	1216
+chrUn_KI270394v1	970
+chrUn_KI270386v1	1788
+chrUn_KI270391v1	1484
+chrUn_KI270383v1	1750
+chrUn_KI270393v1	1308
+chrUn_KI270384v1	1658
+chrUn_KI270392v1	971
+chrUn_KI270381v1	1930
+chrUn_KI270385v1	990
+chrUn_KI270382v1	4215
+chrUn_KI270376v1	1136
+chrUn_KI270374v1	2656
+chrUn_KI270372v1	1650
+chrUn_KI270373v1	1451
+chrUn_KI270375v1	2378
+chrUn_KI270371v1	2805
+chrUn_KI270448v1	7992
+chrUn_KI270521v1	7642
+chrUn_GL000195v1	182896
+chrUn_GL000219v1	179198
+chrUn_GL000220v1	161802
+chrUn_GL000224v1	179693
+chrUn_KI270741v1	157432
+chrUn_GL000226v1	15008
+chrUn_GL000213v1	164239
+chrUn_KI270743v1	210658
+chrUn_KI270744v1	168472
+chrUn_KI270745v1	41891
+chrUn_KI270746v1	66486
+chrUn_KI270747v1	198735
+chrUn_KI270748v1	93321
+chrUn_KI270749v1	158759
+chrUn_KI270750v1	148850
+chrUn_KI270751v1	150742
+chrUn_KI270752v1	27745
+chrUn_KI270753v1	62944
+chrUn_KI270754v1	40191
+chrUn_KI270755v1	36723
+chrUn_KI270756v1	79590
+chrUn_KI270757v1	71251
+chrUn_GL000214v1	137718
+chrUn_KI270742v1	186739
+chrUn_GL000216v2	176608
+chrUn_GL000218v1	161147
+chrEBV	171823
+ERCC-00002	1045
+ERCC-00003	1007
+ERCC-00004	507
+ERCC-00009	968
+ERCC-00012	978
+ERCC-00013	792
+ERCC-00014	1957
+ERCC-00016	834
+ERCC-00017	1121
+ERCC-00019	627
+ERCC-00022	735
+ERCC-00024	519
+ERCC-00025	1978
+ERCC-00028	1120
+ERCC-00031	1122
+ERCC-00033	2014
+ERCC-00034	1003
+ERCC-00035	1114
+ERCC-00039	724
+ERCC-00040	728
+ERCC-00041	1121
+ERCC-00042	1007
+ERCC-00043	1007
+ERCC-00044	1149
+ERCC-00046	506
+ERCC-00048	976
+ERCC-00051	258
+ERCC-00053	1007
+ERCC-00054	256
+ERCC-00057	1014
+ERCC-00058	1120
+ERCC-00059	509
+ERCC-00060	506
+ERCC-00061	1120
+ERCC-00062	1007
+ERCC-00067	628
+ERCC-00069	1121
+ERCC-00071	626
+ERCC-00073	587
+ERCC-00074	506
+ERCC-00075	1007
+ERCC-00076	626
+ERCC-00077	258
+ERCC-00078	977
+ERCC-00079	628
+ERCC-00081	517
+ERCC-00083	1013
+ERCC-00084	978
+ERCC-00085	828
+ERCC-00086	1012
+ERCC-00092	1108
+ERCC-00095	513
+ERCC-00096	1091
+ERCC-00097	506
+ERCC-00098	1126
+ERCC-00099	1344
+ERCC-00104	2013
+ERCC-00108	1005
+ERCC-00109	520
+ERCC-00111	978
+ERCC-00112	1120
+ERCC-00113	825
+ERCC-00116	1977
+ERCC-00117	1120
+ERCC-00120	520
+ERCC-00123	1006
+ERCC-00126	1111
+ERCC-00130	1051
+ERCC-00131	755
+ERCC-00134	257
+ERCC-00136	1025
+ERCC-00137	521
+ERCC-00138	1005
+ERCC-00142	478
+ERCC-00143	767
+ERCC-00144	521
+ERCC-00145	1024
+ERCC-00147	1007
+ERCC-00148	478
+ERCC-00150	727
+ERCC-00154	521
+ERCC-00156	478
+ERCC-00157	1003
+ERCC-00158	1012
+ERCC-00160	727
+ERCC-00162	507
+ERCC-00163	527
+ERCC-00164	1007
+ERCC-00165	856
+ERCC-00168	1007
+ERCC-00170	1007
+ERCC-00171	489
+SIRV1	12643
+SIRV2	6911
+SIRV3	10943
+SIRV4	16122
+SIRV5	14606
+SIRV6	12837
+SIRV7	148957
+SIRV4001	3997
+SIRV4002	3999
+SIRV4003	4001
+SIRV6001	6000
+SIRV6002	6000
+SIRV6003	6000
+SIRV8001	8001
+SIRV8002	8000
+SIRV8003	8000
+SIRV10001	9941
+SIRV10002	10001
+SIRV10003	9970
+SIRV12001	12029
+SIRV12002	11999
+SIRV12003	12000
+Genome sequence total length = 3100346906
+Genome size with padding = 3168534528
+May 24 20:05:17 ..... processing annotations GTF
+Processing pGe.sjdbGTFfile=data/raw/lrgasp/references/lrgasp_gencode_v38_sirvs.gtf, found:
+		237188 transcripts
+		1499476 exons (non-collapsed)
+		391107 collapsed junctions
+Total junctions: 391107
+May 24 20:05:32 ..... finished GTF processing
+
+Estimated genome size with padding and SJs: total=genome+SJ=3369534528 = 3168534528 + 201000000
+GstrandBit=32
+Number of SA indices: 5870601632
+May 24 20:05:45 ... starting to sort Suffix Array. This may take a long time...
+Number of chunks: 27;   chunks size limit: 1849719800 bytes
+May 24 20:06:00 ... sorting Suffix Array chunks and saving them to disk...
+Writing 1618878072 bytes into data/processed/star_index//SA_2 ; empty space on disk = 20857590120448 bytes ... done
+Writing 1632354112 bytes into data/processed/star_index//SA_1 ; empty space on disk = 20857573343232 bytes ... done
+Writing 1686943056 bytes into data/processed/star_index//SA_3 ; empty space on disk = 20851047006208 bytes ... done
+Writing 1808338864 bytes into data/processed/star_index//SA_0 ; empty space on disk = 20848094216192 bytes ... done
+Writing 1722713200 bytes into data/processed/star_index//SA_4 ; empty space on disk = 20844029935616 bytes ... done
+Writing 1795201168 bytes into data/processed/star_index//SA_5 ; empty space on disk = 20840573829120 bytes ... done
+Writing 1784902968 bytes into data/processed/star_index//SA_7 ; empty space on disk = 20840565440512 bytes ... done
+Writing 1835406880 bytes into data/processed/star_index//SA_6 ; empty space on disk = 20833388986368 bytes ... done
+Writing 1601983336 bytes into data/processed/star_index//SA_8 ; empty space on disk = 20829450534912 bytes ... done
+Writing 1734549240 bytes into data/processed/star_index//SA_10 ; empty space on disk = 20826220920832 bytes ... done
+Writing 1769702352 bytes into data/processed/star_index//SA_11 ; empty space on disk = 20822752231424 bytes ... done
+Writing 1657262952 bytes into data/processed/star_index//SA_13 ; empty space on disk = 20822131474432 bytes ... done
+Writing 1809890928 bytes into data/processed/star_index//SA_9 ; empty space on disk = 20822123085824 bytes ... done
+Writing 1740973504 bytes into data/processed/star_index//SA_12 ; empty space on disk = 20815277981696 bytes ... done
+Writing 1722327736 bytes into data/processed/star_index//SA_14 ; empty space on disk = 20808743256064 bytes ... done
+Writing 1826895888 bytes into data/processed/star_index//SA_15 ; empty space on disk = 20805241012224 bytes ... done
+Writing 1810728480 bytes into data/processed/star_index//SA_16 ; empty space on disk = 20801218674688 bytes ... done
+Writing 1693894792 bytes into data/processed/star_index//SA_20 ; empty space on disk = 20799037636608 bytes ... done
+Writing 1694776872 bytes into data/processed/star_index//SA_18 ; empty space on disk = 20799037636608 bytes ... done
+Writing 1811712536 bytes into data/processed/star_index//SA_19 ; empty space on disk = 20790795829248 bytes ... done
+Writing 1770425832 bytes into data/processed/star_index//SA_21 ; empty space on disk = 20789948579840 bytes ... done
+Writing 1826245128 bytes into data/processed/star_index//SA_17 ; empty space on disk = 20783648735232 bytes ... done
+Writing 1748466824 bytes into data/processed/star_index//SA_22 ; empty space on disk = 20781144735744 bytes ... done
+Writing 1698115056 bytes into data/processed/star_index//SA_23 ; empty space on disk = 20776438726656 bytes ... done
+Writing 1534468120 bytes into data/processed/star_index//SA_25 ; empty space on disk = 20772705796096 bytes ... done
+Writing 1819309024 bytes into data/processed/star_index//SA_24 ; empty space on disk = 20769627176960 bytes ... done
+Writing 1808346136 bytes into data/processed/star_index//SA_26 ; empty space on disk = 20765973938176 bytes ... done
+May 24 20:21:30 ... loading chunks from disk, packing SA...
+May 24 20:22:40 ... finished generating suffix array
+May 24 20:22:40 ... generating Suffix Array index
+May 24 20:25:53 ... completed Suffix Array index
+May 24 20:25:54   Finished preparing junctions
+May 24 20:25:54 ..... inserting junctions into the genome indices
+May 24 20:26:49   Finished SA search: number of new junctions=391054, old junctions=0
+May 24 20:27:32   Finished sorting SA indicesL nInd=156316200
+Genome size with junctions=3247136382  3168534528   78601854
+GstrandBit1=32   GstrandBit=32
+May 24 20:28:49   Finished inserting junction indices
+May 24 20:29:15   Finished SAi
+May 24 20:29:15 ..... finished inserting junctions into genome
+May 24 20:29:15 ... writing Genome to disk ...
+Writing 3247136382 bytes into data/processed/star_index//Genome ; empty space on disk = 20868478533632 bytes ... done
+SA size in bytes: 24861036060
+May 24 20:29:21 ... writing Suffix Array to disk ...
+Writing 24861036060 bytes into data/processed/star_index//SA ; empty space on disk = 20864871432192 bytes ... done
+May 24 20:30:06 ... writing SAindex to disk
+Writing 8 bytes into data/processed/star_index//SAindex ; empty space on disk = 20813713506304 bytes ... done
+Writing 120 bytes into data/processed/star_index//SAindex ; empty space on disk = 20813713506304 bytes ... done
+Writing 1565873491 bytes into data/processed/star_index//SAindex ; empty space on disk = 20813713506304 bytes ... done
+May 24 20:30:11 ..... finished successfully
+DONE: Genome generation, EXITING

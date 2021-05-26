@@ -1,0 +1,19 @@
+name: lrgasp
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.8
+  - pip=21.1
+  - stringtie>=2
+  - minimap>=2
+  - pip:
+    - numpy
+    - scipy
+    - synapseclient
+    - matplotlib
+    - seaborn
+    - pyyaml
+    - snakemake
+prefix: /data/homezvol2/mcelik/.conda/envs/lrgasp

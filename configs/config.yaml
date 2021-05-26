@@ -1,0 +1,57 @@
+lrgasp:
+  dir: data/raw/lrgasp
+
+  reference:
+    human_gtf: data/raw/lrgasp/references/lrgasp_gencode_v38_sirvs.gtf
+    mouse_gtf: data/raw/lrgasp/references/lrgasp_gencode_vM27_sirvs.gtf
+    human_fasta: data/raw/lrgasp/references/lrgasp_grch38_sirvs.fasta
+    mouse_fasta: data/raw/lrgasp/references/lrgasp_grcm39_sirvs.fasta
+    manatee_fasta: data/raw/lrgasp/references/lrgasp_manatee_sirv1.fasta
+    sirv_fasta: data/raw/lrgasp/references/lrgasp_sirv4.fasta
+    sirv_gtf: data/raw/lrgasp/references/lrgasp_sirvs4.gtf
+
+  simulation:
+    human:
+      illumina_fq1: data/raw/lrgasp/simulation/human_simulation/human.Illumina.simulated_1.fq
+      illumina_fq2: data/raw/lrgasp/simulation/human_simulation/human.Illumina.simulated_2.fq
+      ont: data/raw/lrgasp/simulation/human_simulation/human.ONT.simulated.fq
+      pacbio: data/raw/lrgasp/simulation/human_simulation/human.PacBio.simulated.fasta
+    mouse:
+      illumina_fq1: data/raw/lrgasp/simulation/mouse_simulation/mouse.Illumina.simulated_1.fq
+      illumina_fq2: data/raw/lrgasp/simulation/mouse_simulation/mouse.Illumina.simulated_2.fq
+      ont: data/raw/lrgasp/simulation/mouse_simulation/mouse.ONT.simulated.fq
+      pacbio: data/raw/lrgasp/simulation/mouse_simulation/mouse.PacBio.simulated.fasta
+
+utilities:
+  dir: data/raw/utilities/
+  polyA_list: data/raw/utilities/polyA_list.txt
+  human_tss: data/raw/utilities/refTSS.human.bed
+  mouse_tss: data/raw/utilities/refTSS.mouse.bed
+      
+star:
+  index: data/processed/star_index/
+  dir: data/processed/human_illumina
+  SJ: data/processed/human_illumina/SJ.out.tab
+
+minimap:
+  human:
+    ont_sam: data/processed/human_minimap/human.sam
+    ont_bam: data/processed/human_minimap/human.bam
+  sam: data/processed/{specie}_minimap/{specie}_{platform}.sam
+  bam: data/processed/{specie}_minimap/{specie}_{platform}.bam
+      
+talon:
+  human:
+    gtf: data/processed/talon/human/human.gtf
+
+stringtie:
+  human:
+    gtf_raw: data/processed/stringtie/human/human_raw.gtf
+    gtf: data/processed/stringtie/human/human.gtf
+
+cupcake_path: /data/homezvol2/mcelik/Projects/cDNA_Cupcake/
+sqanti3_lrgasp_path: /data/homezvol2/mcelik/Projects/lrgasp-submissions/bin/sqanti3_evaluation/sqanti3_lrgasp.py
+
+
+benchmark:
+  result_dir: data/processed/results/human_ont/
