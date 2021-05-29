@@ -16,4 +16,4 @@ rule post_process_stringtie:
     output:
         gtf = config['stringtie']['gtf']
     script:
-        "./scripts/post_process_stringtie.py"
+        "../scripts/post_process_stringtie.py"
