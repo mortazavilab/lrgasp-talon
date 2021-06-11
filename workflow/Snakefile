@@ -3,6 +3,8 @@ configfile: "configs/config.yaml"
 
 species = config['species']
 platforms = config['platforms']
+species = ['human']
+platforms = ['PacBio']
 # tools = config['tools']
 tools = ['stringtie']
 
@@ -22,15 +24,14 @@ def fastq_specie_platform(wildcards):
 include: "./rules/download.smk"
 include: "./rules/align.smk"
 include: "./rules/stringtie.smk"
-
 # TODO: run TALON
-# include: "./rules/talon.smk"
-
+include: "./rules/talon.smk"
 include: "./rules/benchmark.smk"
 
 rule all:
     input:
-        config['lrgasp']['dir'] + '/../lrgasp.done',
-        config['utilities']['polyA_list'],
-        expand(config['benchmark']['result_dir'],
-               specie=species, platform=platforms, tool=tools)
+        expand(config['talon']['talon'], specie=species)
+        # config['lrgasp']['dir'] + '/../lrgasp.done',
+        # config['utilities']['polyA_list'],
+        # expand(config['benchmark']['result_dir'],
+        #        specie=species, platform=platforms, tool=tools)

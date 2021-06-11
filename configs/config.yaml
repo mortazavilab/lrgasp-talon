@@ -47,8 +47,22 @@ minimap:
   bam: data/processed/{specie}_minimap/{platform}/simulated_{specie}_{platform}.bam
       
 talon:
-  gtf: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_talon.gtf
+  samples: configs/talon_{specie}_sample_config.csv
+  config:
+    annot_name: lrgasp_annot
+    genome_name: lrgasp_genome
+    dist_5p: 500
+    dist_3p: 300
+    min_transcript_length: 0
+    idprefix: lrgasp
 
+  tmp_dir: data/processed/_talon_tmp/
+  sam_read_ann: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_labeled.sam
+  db: data/processed/talon/{specie}/{specie}_lrgasp.db
+  talon: data/processed/talon/{specie}/talon_output/{specie}_talon_output
+  
+  gtf: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_talon.gtf
+  
 stringtie:
   gtf_raw: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie_raw.gtf
   gtf: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie.gtf

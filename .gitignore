@@ -89,5 +89,5 @@ target/
 .mypy_cache/
 
 .snakemake
-
+talon_tmp
 configs/synapse_auth_token.txt

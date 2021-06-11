@@ -1,4 +1,4 @@
-rule benchmark_human_task1:
+rule benchmark_task1:
     input:
         submitted_gtf = config['tools']['gtf'],
         gtf = gtf_specie,
@@ -30,6 +30,9 @@ rule benchmark_human_task1:
                 --polyA_motif_list {input.polyA_list} -c {input.SJ} \
                 -d {output.results} -o {params.name}_submission_test'
         )
+
+# rule benchmark_task2
+# "https://github.com/Tidesun/LRGASP_visualization"
 
 
 # TODO: benchmark task 2
