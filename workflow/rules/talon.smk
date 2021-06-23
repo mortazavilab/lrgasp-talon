@@ -46,9 +46,10 @@ rule talon_populate_db:
         db = config['talon']['db']
     params:
         genome_name = config['talon']['config']['genome_name'],
-        prefix = config['talon']['talon']
+        prefix = config['talon']['read_annot'].replace(
+            '_talon_read_annot.tsv', '')
     output:
-        talon = config['talon']['talon']
+        read_annot = config['talon']['read_annot']
     threads: 64
     shell:
         "talon \
@@ -57,3 +58,43 @@ rule talon_populate_db:
         --build {params.genome_name} \
         --t {threads} \
         --o {params.prefix}"
+
+
+rule talon_filter_transcripts:
+    input:
+        db = config['talon']['db'],
+        read_annot = config['talon']['read_annot']
+    params:
+        maxFracA = 0.5,
+        minCount = 5,
+        minDatasets = 1,
+        annot_name = config['talon']['config']['annot_name']
+    output:
+        white_list = config['talon']['white_list']
+    shell:
+        "talon_filter_transcripts \
+        --db {input.db} \
+        -a {params.annot_name} \
+        --maxFracA={params.maxFracA} \
+        --minCount={params.minCount} \
+        --minDatasets={params.minDatasets} \
+        --o {output.white_list}"
+
+
+rule talon_gtf:
+    input:
+        db = config['talon']['db'],
+        white_list = config['talon']['white_list']
+    params:
+        genome_name = config['talon']['config']['genome_name'],
+        annot_name = config['talon']['config']['annot_name'],
+        gtf_prefix = config['talon']['gtf'].replace('_talon.gtf', '')
+    output:
+        gtf = config['talon']['gtf']
+    shell:
+        "talon_create_GTF \
+        --db {input.db} \
+        -b {params.genome_name} \
+        -a {params.annot_name} \
+        --whitelist={input.white_list} \
+        --o {params.gtf_prefix}"

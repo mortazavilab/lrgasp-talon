@@ -9,8 +9,7 @@ rule benchmark_task1:
         cupcake_path = config['cupcake_path'],
         sqanti3_lrgasp_path = config['sqanti3_lrgasp_path']
     params:
-        conda_env = 'sqanti3_lrgasp',
-        name = 'simulation_{wildcards.specie}_{wildcards.platform}_{wildcards.tools}'
+        conda_env = 'sqanti3_lrgasp'
     output:
         results = directory(config['benchmark']['result_dir'])
     run:
@@ -26,9 +25,10 @@ rule benchmark_task1:
             ' && export PYTHONPATH=$PYTHONPATH:{input.cupcake_path}/sequence/ '
             ' && export PYTHONPATH=$PYTHONPATH:{input.cupcake_path} '
             ' && python {input.sqanti3_lrgasp_path} {input.submitted_gtf} {input.gtf} {input.fasta} \
-                --gtf --name {params.name}_submission --platform {wildcards.platform} --cage_peak {input.tss} \
+                --gtf --name simulation_{wildcards.specie}_{wildcards.platform}_{wildcards.tool} \
+                --platform {wildcards.platform} --cage_peak {input.tss} \
                 --polyA_motif_list {input.polyA_list} -c {input.SJ} \
-                -d {output.results} -o {params.name}_submission_test'
+                -d {output.results} -o simulation_{wildcards.specie}_{wildcards.platform}_{wildcards.tool}'
         )
 
 # rule benchmark_task2

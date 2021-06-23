@@ -6,7 +6,7 @@ platforms = config['platforms']
 species = ['human']
 platforms = ['PacBio']
 # tools = config['tools']
-tools = ['stringtie']
+tools = ['stringtie', 'talon']
 
 
 def fasta_specie(wildcards):
@@ -28,10 +28,11 @@ include: "./rules/stringtie.smk"
 include: "./rules/talon.smk"
 include: "./rules/benchmark.smk"
 
+
 rule all:
     input:
-        expand(config['talon']['talon'], specie=species)
+        # expand(config['talon']['gtf'], specie=species, platform=platforms)
         # config['lrgasp']['dir'] + '/../lrgasp.done',
         # config['utilities']['polyA_list'],
-        # expand(config['benchmark']['result_dir'],
-        #        specie=species, platform=platforms, tool=tools)
+        expand(config['benchmark']['result_dir'],
+               specie=species, platform=platforms, tool=tools)

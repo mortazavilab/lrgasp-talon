@@ -59,8 +59,9 @@ talon:
   tmp_dir: data/processed/_talon_tmp/
   sam_read_ann: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_labeled.sam
   db: data/processed/talon/{specie}/{specie}_lrgasp.db
-  talon: data/processed/talon/{specie}/talon_output/{specie}_talon_output
+  read_annot: data/processed/talon/{specie}/talon_output/{specie}_talon_read_annot.tsv
   
+  white_list: data/processed/talon/{specie}/{specie}_pass_list.csv
   gtf: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_talon.gtf
   
 stringtie:
