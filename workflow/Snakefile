@@ -1,38 +1,126 @@
+import pdb
+import pandas as pd
+from src.utils.io import read_data_matrix
+
 configfile: "configs/config.yaml"
 
-
-species = config['species']
-platforms = config['platforms']
-species = ['human']
-platforms = ['PacBio']
-# tools = config['tools']
-tools = ['stringtie', 'talon']
+tools = ['talon']
 
 
-def fasta_specie(wildcards):
-    return config['lrgasp']['reference'][wildcards.specie]['fasta']
+def _get_row(encode_id):
+    df = pd.read_csv(config['encode']['data_matrix'],
+                     sep='\t').set_index('file_acc')
+    return df.loc[encode_id]
 
 
-def gtf_specie(wildcards):
-    return config['lrgasp']['reference'][wildcards.specie]['gtf']
+def fasta(wildcards):
+    wildcards = dict(wildcards)
+    if 'specie' in wildcards:
+        return config['lrgasp']['reference'][wildcards['specie']]['fasta']
+    elif 'encode_id' in wildcards:
+        row = _get_row(wildcards['encode_id'])
+        return config['lrgasp']['reference'][row['species']]['fasta']
+    else:
+        raise ValueError('fasta cannot be determined from wildcards.')
 
 
-def fastq_specie_platform(wildcards):
-    return config['lrgasp']['simulation'][wildcards.platform].format(specie=wildcards.specie)
+def gtf(wildcards):
+    wildcards = dict(wildcards)
+    if 'specie' in wildcards:
+        return config['lrgasp']['reference'][wildcards['specie']]['gtf']
+    elif 'encode_id' in wildcards:
+        row = _get_row(wildcards['encode_id'])
+        return config['lrgasp']['reference'][row['species']]['gtf']
+    else:
+        raise ValueError('gtf cannot be determined from wildcards.')
+
+
+# def fastq_files(wildcards):
+#     df = read_data_matrix(config['encode']['data_matrix'], wildcards)
+#     return [
+#         f'{config["encode"]["fastq_dir"]}/{row["species"]}_{row["sample"]}_{row["library_prep"]}_{row["platform"]}_{row["replicate"]}_{row["file_acc"]}.fastq'
+#         for i, row in df.iterrows()
+#     ]
+
+
+# def fastq_paired(wildcards):
+#     df = read_data_matrix(config['encode']['data_matrix'], wildcards)
+#     return [
+#         f'{config["encode"]["fastq_dir"]}/{row["species"]}_{row["sample"]}_{row["library_prep"]}_{row["platform"]}_{row["replicate"]}_{row["paired_acc"]}.fastq'
+#         for i, row in df.iterrows()
+#     ]
+
+
+# def expand_encode(path, wildcards):
+#     df = read_data_matrix(config['encode']['data_matrix'], wildcards)
+#     return [
+#         path.format(specie=row['species'], sample=row['sample'],
+#                     library_prep=row['library_prep'], platform=row['platform'],
+#                     rep=row['replicate'], acc=row['file_acc'])
+#         for i, row in df.iterrows()
+#     ]
 
 
 include: "./rules/download.smk"
 include: "./rules/align.smk"
-include: "./rules/stringtie.smk"
+# include: "./rules/stringtie.smk"
 # TODO: run TALON
 include: "./rules/talon.smk"
 include: "./rules/benchmark.smk"
 
 
+# df = read_data_matrix(config['encode']['data_matrix'])
+# df = df[
+#     (df['species'] == 'human') &
+#     (df['sample'] == 'WTC11') &
+#     (df['library_prep'] == 'cDNA') &
+#     (df['platform'] == 'PacBio')
+# ]
+
+
 rule all:
     input:
-        # expand(config['talon']['gtf'], specie=species, platform=platforms)
-        # config['lrgasp']['dir'] + '/../lrgasp.done',
-        # config['utilities']['polyA_list'],
-        expand(config['benchmark']['result_dir'],
-               specie=species, platform=platforms, tool=tools)
+        expand(config['transcriptclean']['sam'],
+               encode_id=['ENCFF023EXJ', 'ENCFF263YFG', 'ENCFF961HLO'],
+               method=['long', 'short'])
+
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11'],
+        #     library_prep=['cDNA', 'CapTrap'],
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11'],
+        #     library_prep=['dRNA', 'cDNA'],  # 'R2C2',
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # )
+
+        # dynamic(expand(config['transcriptclean']['sam_clean_batch'],
+        #                encode_id='ENCFF961HLO', method='long', batch_id='{batch_id}'))
+
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['H1mix'],
+        #     library_prep=['cDNA', 'CapTrap'],
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11'],
+        #     library_prep=['dRNA', 'R2C2', 'cDNA'],
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # )

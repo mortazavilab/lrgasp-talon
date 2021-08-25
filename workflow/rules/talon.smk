@@ -1,23 +1,190 @@
-# Transcript Isoform detection with TALON
+#  Transcript Isoform detection with TALON
+
+rule fasta_header:
+    input:
+        fasta = fasta,
+    output:
+        fasta = config['transcriptclean']['fasta']
+    threads: 1
+    resources:
+        mem_mb = 8000
+    script:
+        "../scripts/fasta_chrom.py"
+
+
+def tc_fasta(wildcards):
+    wildcards = dict(wildcards)
+    if 'specie' in wildcards:
+        return config['transcriptclean']['fasta'].format(specie=wildcards['specie'])
+    elif 'encode_id' in wildcards:
+        row = _get_row(wildcards['encode_id'])
+        return config['transcriptclean']['fasta'].format(specie=row['species'])
+    else:
+        raise ValueError('fasta cannot be determined from wildcards.')
+
+
+rule transcriptclean_SJ:
+    input:
+        genome = tc_fasta,
+        gtf = gtf
+    params:
+        tc_path = config['transcriptclean']['tc_path']
+    output:
+        genome_sj = config['transcriptclean']['gtf_sj']
+    threads: 1
+    resources:
+        mem_mb = 16000
+    shell:
+        "python {params.tc_path}/accessory_scripts/get_SJs_from_gtf.py \
+        --f={input.gtf} \
+        --g={input.genome} \
+        --o={output.genome_sj}"
+
+
+def transcriptclean_sj(wildcards):
+    row = _get_row(wildcards.encode_id)
+    if wildcards.method == 'short':
+        return config['star']['SJ'].format(
+            specie=row['species'],
+            sample=row['sample'],
+            platform='Illumina'
+        )
+    elif wildcards.method == 'long':
+        return config['transcriptclean']['gtf_sj'].format(specie=row['species'])
+    else:
+        raise ValueError('SJ file cannot be determined')
+
+
+rule transcriptclean_batch:
+    input:
+        sam = config['minimap']['sam_sorted']
+    params:
+        batch_size = 10000,
+        batch_dir = config['transcriptclean']['batch_dir']
+    output:
+        dynamic(config['transcriptclean']['bam_batch'])
+    shell:
+        "gatk SplitSamByNumberOfReads \
+        -I {input.sam} \
+        -O {params.batch_dir} \
+        -N_READS {params.batch_size}"
+
+
+rule transcriptclean_batch_sam:
+    input:
+        bam = config['transcriptclean']['bam_batch']
+    output:
+        sam = config['transcriptclean']['sam_batch']
+    group: "transcriptclean_batch"
+    threads: 1
+    resources:
+        mem_mb = 4000
+    shell:
+        "samtools view -h {input.bam} > {output.sam}"
+
+
+rule transcriptclean:
+    input:
+        sam = config['transcriptclean']['sam_batch'],
+        # config['minimap']['sam_sorted'],
+        sj = transcriptclean_sj,
+        genome = tc_fasta
+    params:
+        tc_path = config['transcriptclean']['tc_path'],
+        prefix = config['transcriptclean']['sam_clean_batch'].replace(
+            '_clean.sam', '')
+    output:
+        sam = config['transcriptclean']['sam_clean_batch']
+    group: "transcriptclean_batch"
+    threads: 1
+    resources:
+        mem_mb = 4000
+    shell:
+        "python {params.tc_path}/TranscriptClean.py \
+        --sam {input.sam} \
+        --genome {input.genome} \
+        -t {threads} \
+        --canonOnly \
+        --deleteTmp \
+        --spliceJns {input.sj} \
+        --outprefix {params.prefix}"
+
+
+rule transcriptclean_merge:
+    input:
+        batches = dynamic(config['transcriptclean']['sam_clean_batch'])
+    output:
+        sam = config['transcriptclean']['sam']
+    threads: 1
+    resources:
+        mem_mb = 16000
+    run:
+        batches_txt = f'{resources.tmpdir}/{wildcards.encode_id}_{wildcards.method}_batches.txt'
+        with open(batches_txt, 'w') as f:
+            for line in input.batches:
+                f.write(line + '\n')
+
+        shell(f"samtools merge - -b {batches_txt} --no-PG | samtools view -h > {output.sam}")
+
 
 rule talon_label_reads:
     input:
-        fasta = fasta_specie,
-        sam = config['minimap']['sam'],
-        tmp_dir = config['talon']['tmp_dir']
+        fasta = tc_fasta,
+        sam = config['transcriptclean']['sam']
     threads: 16
+    resources:
+        mem_mb = 64000
     params:
-        prefix = config['talon']['sam_read_ann'].replace('_labeled.sam', '')
+        prefix = config['talon']['sam_read_ann'].replace('_labeled.sam', ''),
+        tmp_dir = config['talon']['tmp_dir_read_ann']
     output:
         sam = config['talon']['sam_read_ann']
     shell:
-        "talon_label_reads --f {input.sam} --g {input.fasta} --t {threads} --ar 20 \
-        --tmpDir={input.tmp_dir} --deleteTmp --o {params.prefix}"
+        "talon_label_reads \
+        --f {input.sam} \
+        --g {input.fasta} \
+        --t {threads} \
+        --ar 20 \
+        --tmpDir={params.tmp_dir} \
+        --deleteTmp \
+        --o {params.prefix}"
+
+
+def sam_read_label(wildcards):
+    df = read_data_matrix(config['encode']['data_matrix'])
+
+    df = df[
+        (df['species'] == wildcards['specie']) &
+        (df['sample'] == wildcards['sample']) &
+        (df['library_prep'] == wildcards['library_prep']) &
+        (df['platform'] == wildcards['platform'])
+    ]
+
+    return expand(config['talon']['sam_read_ann'],
+                  encode_id=df.index, method=wildcards['method'])
+
+
+rule talon_config_file:
+    input:
+        sams = sam_read_label
+    output:
+        config['talon']['samples']
+    threads: 1
+    resources:
+        mem_mb = 8000
+    run:
+        name = f"{wildcards.specie}_{wildcards.sample}_{wildcards.library_prep}_{wildcards.platform}"
+        df = pd.DataFrame({
+            0: name,
+            1: [Path(i).stem.replace('_labeled', '') for i in input.sams],
+            2: f'{wildcards.library_prep}_{wildcards.platform}',
+            3: input.sams
+        }).to_csv(output[0], index=False, header=False)
 
 
 rule talon_initialize_database:
     input:
-        gtf = gtf_specie,
+        gtf = gtf,
     params:
         annot_name = config['talon']['config']['annot_name'],
         genome_name = config['talon']['config']['genome_name'],
@@ -28,6 +195,9 @@ rule talon_initialize_database:
         db_prefix = config['talon']['db'].replace('.db', '')
     output:
         db = config['talon']['db']
+    threads: 1
+    resources:
+        mem_mb = 16000
     shell:
         "talon_initialize_database \
         --f {input.gtf} \
@@ -45,18 +215,22 @@ rule talon_populate_db:
         config = config['talon']['samples'],
         db = config['talon']['db']
     params:
+        tmp_dir = config['talon']['tmp_dir'],
         genome_name = config['talon']['config']['genome_name'],
         prefix = config['talon']['read_annot'].replace(
             '_talon_read_annot.tsv', '')
     output:
         read_annot = config['talon']['read_annot']
-    threads: 64
+    threads: 32
+    resources:
+        mem_mb = 32000
     shell:
         "talon \
         --f {input.config} \
         --db {input.db} \
         --build {params.genome_name} \
-        --t {threads} \
+        --tmpDir {params.tmp_dir} \
+        -t {threads} \
         --o {params.prefix}"
 
 
@@ -71,6 +245,9 @@ rule talon_filter_transcripts:
         annot_name = config['talon']['config']['annot_name']
     output:
         white_list = config['talon']['white_list']
+    threads: 1
+    resources:
+        mem_mb = 16000
     shell:
         "talon_filter_transcripts \
         --db {input.db} \
@@ -91,6 +268,9 @@ rule talon_gtf:
         gtf_prefix = config['talon']['gtf'].replace('_talon.gtf', '')
     output:
         gtf = config['talon']['gtf']
+    threads: 1
+    resources:
+        mem_mb = 16000
     shell:
         "talon_create_GTF \
         --db {input.db} \

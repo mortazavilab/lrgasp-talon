@@ -29,7 +29,19 @@ rule download_utilities:
         ]
     output:
         config['utilities']['polyA_list'],
-        expand(config['utilities']['tss'], specie=species)
+        expand(config['utilities']['tss'], specie=config['species'])
     run:
         for i in params['links']:
             shell(f'wget {i} -P {params.utilities_dir}')
+
+
+rule download_encode:
+    input:
+        data_matrix = config['encode']['data_matrix']
+    output:
+        config['encode']['fastq']
+    threads: 1
+    resources:
+        mem_mb = 16000
+    script:
+        "../scripts/encode_download.py"

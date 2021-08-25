@@ -1,15 +1,26 @@
 tools:
-  - stringtie
   - talon
+  # - stringtie
 
 species:
   - human
-  - mouse
+  # - mouse
 
 platforms:
-  - ONT
   - PacBio
+  # - ONT
 
+cell_lines:
+  - WTC11
+  # - H1mix
+  # - ES
+
+library_prep:
+  - cDNA
+  # - CapTrap
+  # - dRNA
+  # - R2C2
+  
 lrgasp:
   dir: data/raw/lrgasp
 
@@ -26,11 +37,19 @@ lrgasp:
       fasta: data/raw/lrgasp/references/lrgasp_sirv4.fasta
       gtf: data/raw/lrgasp/references/lrgasp_sirvs4.gtf
 
+  annotation_bed: data/raw/processed/common/{specie}_annotation.bed
+      
   simulation:
     illumina_fq1: data/raw/lrgasp/simulation/{specie}_simulation/{specie}.Illumina.simulated_1.fq
     illumina_fq2: data/raw/lrgasp/simulation/{specie}_simulation/{specie}.Illumina.simulated_2.fq
     ONT: data/raw/lrgasp/simulation/{specie}_simulation/{specie}.ONT.simulated.fq
     PacBio: data/raw/lrgasp/simulation/{specie}_simulation/{specie}.PacBio.simulated.fasta
+
+encode:
+  data_matrix: data/raw/rnaseq-data-matrix.tsv
+  raw_fastq: data/raw/encode/fastq/{encode_id}.{file_type}.gz
+  fastq_dir: data/raw/encode/fastq
+  fastq: data/raw/encode/fastq/{encode_id}.fastq
 
 utilities:
   dir: data/raw/utilities/
@@ -38,42 +57,58 @@ utilities:
   tss: data/raw/utilities/refTSS.{specie}.bed
       
 star:
-  index: data/processed/{specie}_star_index/
-  bam: data/processed/{specie}_illumina/Aligned.sortedByCoord.out.bam
-  SJ: data/processed/{specie}_illumina/SJ.out.tab
+  index: data/processed/star/{specie}_star_index/
+  bam: data/processed/star/{specie}_{sample}_{platform}/Aligned.sortedByCoord.out.bam
+  SJ: data/processed/star/{specie}_{sample}_{platform}/SJ.out.tab
 
 minimap:
-  sam: data/processed/{specie}_minimap/{platform}/simulated_{specie}_{platform}.sam
-  bam: data/processed/{specie}_minimap/{platform}/simulated_{specie}_{platform}.bam
-      
+  sam: data/processed/minimap/{encode_id}.sam
+  sam_sorted: data/processed/minimap/sorted/{encode_id}.sam
+  bam: data/processed/minimap/{encode_id}.bam
+  
+transcriptclean:
+  tc_path: ../TranscriptClean
+  sam: data/processed/transcriptclean/{encode_id}_{method}/{encode_id}_{method}_clean.sam
+
+  batch_dir: data/processed/minimap/batch/{encode_id}/
+  bam_batch: data/processed/minimap/batch/{encode_id}/shard_{batch_id}.bam
+  sam_batch: data/processed/minimap/batch/{encode_id}/shard_{batch_id}.sam
+
+  sam_clean_batch: data/processed/transcriptclean/{encode_id}_{method}/{encode_id}_{method}_batch/{batch_id}/shard_{batch_id}_clean.sam
+  
+  tmp_dir: data/processed/transcriptclean/{encode_id}_{method}/{encode_id}_{method}_tmp_dir
+  fasta: data/processed/transcriptclean/{specie}.fasta
+  gtf_sj: data/processed/transcriptclean/{specie}.SJ.out.tab
+  
 talon:
-  samples: configs/talon_{specie}_sample_config.csv
+  samples: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{specie}_{sample}_{library_prep}_{platform}_{method}_config.csv
   config:
-    annot_name: lrgasp_annot
+    annot_name: "{specie}_{sample}_{library_prep}_{platform}_{method}"
     genome_name: lrgasp_genome
     dist_5p: 500
     dist_3p: 300
     min_transcript_length: 0
-    idprefix: lrgasp
+    idprefix: "{specie}_{sample}_{library_prep}_{platform}_{method}"
+    
+  tmp_dir_read_ann: data/processed/talon/{encode_id}_{method}/talon_tmp
+  sam_read_ann: data/processed/talon/{encode_id}_{method}/{encode_id}_{method}_labeled.sam
 
-  tmp_dir: data/processed/_talon_tmp/
-  sam_read_ann: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_labeled.sam
-  db: data/processed/talon/{specie}/{specie}_lrgasp.db
-  read_annot: data/processed/talon/{specie}/talon_output/{specie}_talon_read_annot.tsv
-  
-  white_list: data/processed/talon/{specie}/{specie}_pass_list.csv
-  gtf: data/processed/talon/{specie}/{platform}/simulated_{specie}_{platform}_talon.gtf
+  tmp_dir: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/tmp_dir/
+  db: data/processed/talon/{specie}/{sample}/{platform}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}.db
+  read_annot: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon_read_annot.tsv
+  white_list: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_pass_list.csv
+  gtf: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon.gtf
   
 stringtie:
   gtf_raw: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie_raw.gtf
   gtf: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie.gtf
 
 tools:
-  gtf: data/processed/{tool}/{specie}/{platform}/simulated_{specie}_{platform}_{tool}.gtf
+  gtf: data/processed/{tool}/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon.gtf
 
 cupcake_path: /data/homezvol2/mcelik/Projects/cDNA_Cupcake/
 sqanti3_lrgasp_path: /data/homezvol2/mcelik/Projects/lrgasp-submissions/bin/sqanti3_evaluation/sqanti3_lrgasp.py
 
 
 benchmark:
-  result_dir: data/processed/results/{tool}/{specie}_{platform}/
+  result_dir: data/processed/results/{tool}/{method}/{specie}_{sample}_{library_prep}_{platform}/
