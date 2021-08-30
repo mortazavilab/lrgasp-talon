@@ -64,7 +64,7 @@ def gtf(wildcards):
 include: "./rules/download.smk"
 include: "./rules/align.smk"
 # include: "./rules/stringtie.smk"
-# TODO: run TALON
+include: "./rules/transcriptclean.smk"
 include: "./rules/talon.smk"
 include: "./rules/benchmark.smk"
 
@@ -81,7 +81,7 @@ include: "./rules/benchmark.smk"
 rule all:
     input:
         expand(config['transcriptclean']['sam'],
-               encode_id=['ENCFF023EXJ', 'ENCFF263YFG', 'ENCFF961HLO'],
+               encode_id=['ENCFF263YFG',  'ENCFF961HLO', 'ENCFF023EXJ'],
                method=['long', 'short'])
 
         # expand(

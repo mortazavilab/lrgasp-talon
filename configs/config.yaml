@@ -68,6 +68,7 @@ minimap:
   
 transcriptclean:
   tc_path: ../TranscriptClean
+  tc_tmpdir: /pub/mcelik/tmp_tc/{encode_id}_{method}_{batch_id}/
   sam: data/processed/transcriptclean/{encode_id}_{method}/{encode_id}_{method}_clean.sam
 
   batch_dir: data/processed/minimap/batch/{encode_id}/
