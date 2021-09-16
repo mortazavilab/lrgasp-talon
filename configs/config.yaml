@@ -1,3 +1,5 @@
+tmpdir: /pub/mcelik/tmp/
+
 tools:
   - talon
   # - stringtie
@@ -91,15 +93,19 @@ talon:
     min_transcript_length: 0
     idprefix: "{specie}_{sample}_{library_prep}_{platform}_{method}"
     
-  tmp_dir_read_ann: data/processed/talon/{encode_id}_{method}/talon_tmp
+  tmp_dir_read_ann: /tmp/mcelik/read_ann/{encode_id}_{method}/talon_tmp
   sam_read_ann: data/processed/talon/{encode_id}_{method}/{encode_id}_{method}_labeled.sam
 
-  tmp_dir: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/tmp_dir/
   db: data/processed/talon/{specie}/{sample}/{platform}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}.db
+  
+  tmp_dir: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/tmp_dir/  
   read_annot: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon_read_annot.tsv
+  qc: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_QC.log
+
   white_list: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_pass_list.csv
   gtf: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon.gtf
-  
+  abundance: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon_abundance_filtered.tsv
+
 stringtie:
   gtf_raw: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie_raw.gtf
   gtf: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie.gtf
@@ -108,8 +114,25 @@ tools:
   gtf: data/processed/{tool}/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon.gtf
 
 cupcake_path: /data/homezvol2/mcelik/Projects/cDNA_Cupcake/
-sqanti3_lrgasp_path: /data/homezvol2/mcelik/Projects/lrgasp-submissions/bin/sqanti3_evaluation/sqanti3_lrgasp.py
+sqanti3_lrgasp_path: /data/homezvol2/mcelik/Projects/lrgasp-challenge-1-evaluation/sqanti3_lrgasp.challenge1.py
 
+submission:
+  task1:
+    dir: data/processed/results/iso_detect_ref_{tool}_{method}/
+    entry: data/processed/results/iso_detect_ref_{tool}_{method}/entry.json
+    experiment: data/processed/results/iso_detect_ref_{tool}_{method}/{specie}_{sample}_{library_prep}_{platform}/experiment.json
 
-benchmark:
-  result_dir: data/processed/results/{tool}/{method}/{specie}_{sample}_{library_prep}_{platform}/
+  task2:
+    dir: data/processed/results/iso_quant_{tool}_{method}/
+    entry: data/processed/results/iso_quant_{tool}_{method}/entry.json
+    experiment: data/processed/results/iso_quant_{tool}_{method}/{specie}_{sample}_{library_prep}_{platform}/experiment.json
+    expression: data/processed/results/iso_quant_{tool}_{method}/{specie}_{sample}_{library_prep}_{platform}/expression.tsv
+    
+benchmark_task1:
+  result_dir: data/processed/results/task1/{tool}/{method}/{specie}_{sample}_{library_prep}_{platform}/
+
+  
+benchmark_task2:
+  path: /data/homezvol2/mcelik/Projects/lrgasp-challenge-2-evaluation/encode_quantification/main.py
+  result_dir: data/processed/results/task2/{tool}/{method}/{specie}_{sample}_{library_prep}_{platform}/
+

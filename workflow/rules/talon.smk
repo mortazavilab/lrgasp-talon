@@ -46,18 +46,21 @@ rule talon_config_file:
     resources:
         mem_mb = 8000
     run:
-        name = f"{wildcards.specie}_{wildcards.sample}_{wildcards.library_prep}_{wildcards.platform}"
+        # name = f"{wildcards.specie}_{wildcards.sample}_{wildcards.library_prep}_{wildcards.platform}"
+        encode_ids = [Path(i).stem.replace('_labeled', '') for i in input.sams]
         df = pd.DataFrame({
-            0: name,
-            1: [Path(i).stem.replace('_labeled', '') for i in input.sams],
+            0: encode_ids,
+            1: encode_ids,
             2: f'{wildcards.library_prep}_{wildcards.platform}',
             3: input.sams
         }).to_csv(output[0], index=False, header=False)
 
 
-rule talon_initialize_database:
+rule talon_create_database:
     input:
+        sam_read_label,
         gtf = gtf,
+        config = config['talon']['samples']
     params:
         annot_name = config['talon']['config']['annot_name'],
         genome_name = config['talon']['config']['genome_name'],
@@ -65,14 +68,21 @@ rule talon_initialize_database:
         idprefix = config['talon']['config']['idprefix'],
         dist_5p = config['talon']['config']['dist_5p'],
         dist_3p = config['talon']['config']['dist_3p'],
-        db_prefix = config['talon']['db'].replace('.db', '')
+        db_prefix = config['talon']['db'].replace('.db', ''),
+
+        tmp_dir = directory(config['talon']['tmp_dir']),
+        prefix = config['talon']['read_annot'].replace(
+            '_talon_read_annot.tsv', '')
     output:
-        db = config['talon']['db']
-    threads: 1
+        db = config['talon']['db'],
+        qc = config['talon']['qc'],
+        read_annot = config['talon']['read_annot'],
+        tmp_dir = directory(config['talon']['tmp_dir'])
+    threads: 8
     resources:
-        mem_mb = 16000
-    shell:
-        "talon_initialize_database \
+        mem_mb = 256000
+    run:
+        shell("talon_initialize_database \
         --f {input.gtf} \
         --g {params.genome_name} \
         --a {params.annot_name} \
@@ -80,31 +90,38 @@ rule talon_initialize_database:
         --idprefix {params.idprefix} \
         --5p {params.dist_5p} \
         --3p {params.dist_3p} \
-        --o {params.db_prefix}"
+        --o {params.db_prefix}")
 
-
-rule talon_populate_db:
-    input:
-        config = config['talon']['samples'],
-        db = config['talon']['db']
-    params:
-        tmp_dir = config['talon']['tmp_dir'],
-        genome_name = config['talon']['config']['genome_name'],
-        prefix = config['talon']['read_annot'].replace(
-            '_talon_read_annot.tsv', '')
-    output:
-        read_annot = config['talon']['read_annot']
-    threads: 32
-    resources:
-        mem_mb = 32000
-    shell:
-        "talon \
+        shell("talon \
         --f {input.config} \
-        --db {input.db} \
+        --db {output.db} \
         --build {params.genome_name} \
         --tmpDir {params.tmp_dir} \
         -t {threads} \
-        --o {params.prefix}"
+        --o {params.prefix}")
+
+
+# rule talon_populate_db:
+#     input:
+#         config = config['talon']['samples'],
+#     params:
+#         tmp_dir = config['talon']['tmp_dir'],
+#         genome_name = config['talon']['config']['genome_name'],
+#         prefix = config['talon']['read_annot'].replace(
+#             '_talon_read_annot.tsv', '')
+#     output:
+#         read_annot = config['talon']['read_annot']
+#     threads: 8
+#     resources:
+#         mem_mb = 64000
+#     shell:
+#         "talon \
+#         --f {input.config} \
+#         --db {input.db} \
+#         --build {params.genome_name} \
+#         --tmpDir {params.tmp_dir} \
+#         -t {threads} \
+#         --o {params.prefix}"
 
 
 rule talon_filter_transcripts:
@@ -113,8 +130,8 @@ rule talon_filter_transcripts:
         read_annot = config['talon']['read_annot']
     params:
         maxFracA = 0.5,
-        minCount = 5,
-        minDatasets = 1,
+        minCount = 2,
+        minDatasets = 2,
         annot_name = config['talon']['config']['annot_name']
     output:
         white_list = config['talon']['white_list']
@@ -151,3 +168,26 @@ rule talon_gtf:
         -a {params.annot_name} \
         --whitelist={input.white_list} \
         --o {params.gtf_prefix}"
+
+
+rule talon_abundance:
+    input:
+        db = config['talon']['db'],
+        white_list = config['talon']['white_list']
+    params:
+        genome_name = config['talon']['config']['genome_name'],
+        annot_name = config['talon']['config']['annot_name'],
+        abundance_prefix = config['talon']['abundance'].replace(
+            '_talon_abundance_filtered.tsv', '')
+    output:
+        abundance = config['talon']['abundance']
+    threads: 1
+    resources:
+        mem_mb = 16000
+    shell:
+        "talon_abundance \
+        --db {input.db} \
+        -b {params.genome_name} \
+        -a {params.annot_name} \
+        --whitelist={input.white_list} \
+        --o {params.abundance_prefix}"

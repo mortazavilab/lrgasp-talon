@@ -57,7 +57,7 @@ rule transcriptclean_batch:
     input:
         sam = config['minimap']['sam_sorted']
     params:
-        batch_size = 10000,
+        batch_size = 100000,
         batch_dir = config['transcriptclean']['batch_dir']
     threads: 1
     resources:
@@ -119,15 +119,17 @@ rule transcriptclean:
 rule transcriptclean_merge:
     input:
         batches = dynamic(config['transcriptclean']['sam_clean_batch'])
+    params:
+        tmpdir = config['tmpdir'] + 'samtools'
     output:
         sam = config['transcriptclean']['sam']
-    threads: 1
+    threads: 4
     resources:
-        mem_mb = 16000
+        mem_mb = 32000
     run:
         batches_txt = f'{resources.tmpdir}/{wildcards.encode_id}_{wildcards.method}_batches.txt'
         with open(batches_txt, 'w') as f:
             for line in input.batches:
                 f.write(line + '\n')
-
-        shell(f"samtools merge - -b {batches_txt} --no-PG | samtools view -h > {output.sam}")
+        shell(f"samtools merge - -b {batches_txt} --no-PG | samtools sort -@ {threads} -T {params.tmpdir} | samtools view -h > {output.sam}")
+        shell(f"rm {batches_txt}")

@@ -41,7 +41,8 @@ rule star_align:
         fq2 = fq2,
         index = config['star']['index']
     output:
-        bam = config['star']['bam']
+        bam = config['star']['bam'],
+        sj = config['star']['SJ']
     log:
         "logs/star/illumina_{specie}_{sample}_{platform}.log"
     params:
@@ -59,6 +60,9 @@ rule gtf2bed:
         gtf = gtf
     output:
         bed = config['lrgasp']['annotation_bed']
+    threads: 1
+    resources:
+        mem_mb = 16000
     shell:
         "paftools.js gff2bed {input.gtf} > {output.bed}"
 

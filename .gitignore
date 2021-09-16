@@ -92,3 +92,4 @@ target/
 talon_tmp
 configs/synapse_auth_token.txt
 slurm-*
+*~

@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def read_data_matrix(path, spec=None):
+def read_data_matrix(path):
     df = pd.read_csv(path, sep='\t')
     df = df[df['file_contents'] == 'reads']
     df['sample'] = df['sample'].str.replace('_', '')

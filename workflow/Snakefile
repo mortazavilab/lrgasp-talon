@@ -8,8 +8,7 @@ tools = ['talon']
 
 
 def _get_row(encode_id):
-    df = pd.read_csv(config['encode']['data_matrix'],
-                     sep='\t').set_index('file_acc')
+    df = read_data_matrix(config['encode']['data_matrix'])
     return df.loc[encode_id]
 
 
@@ -72,45 +71,44 @@ include: "./rules/benchmark.smk"
 # df = read_data_matrix(config['encode']['data_matrix'])
 # df = df[
 #     (df['species'] == 'human') &
-#     (df['sample'] == 'WTC11') &
-#     (df['library_prep'] == 'cDNA') &
-#     (df['platform'] == 'PacBio')
+#     (df['sample'] == 'H1mix') &
+#     # (df['library_prep'] == 'cDNA') &
+#     (df['platform'] == 'ONT') &
+#     (df['file_type'] == 'fastq')
 # ]
 
-
+# config['transcriptclean']['sam']
+# method=['long', 'short']
+# ENCFF288PBL
 rule all:
     input:
-        expand(config['transcriptclean']['sam'],
-               encode_id=['ENCFF263YFG',  'ENCFF961HLO', 'ENCFF023EXJ'],
-               method=['long', 'short'])
-
-        # expand(
-        #     rules.benchmark_task1.output,
-        #     tool=['talon'],
-        #     specie=['human'],
-        #     sample=['WTC11'],
-        #     library_prep=['cDNA', 'CapTrap'],
-        #     platform=['PacBio'],
-        #     method=['long', 'short']
-        # ),
-        # expand(
-        #     rules.benchmark_task1.output,
-        #     tool=['talon'],
-        #     specie=['human'],
-        #     sample=['WTC11'],
-        #     library_prep=['dRNA', 'cDNA'],  # 'R2C2',
-        #     platform=['ONT'],
-        #     method=['long', 'short']
-        # )
+        expand(
+            rules.benchmark_task1.output,
+            tool=['talon'],
+            specie=['mouse'],
+            sample=['ES'],
+            library_prep=['CapTrap', 'cDNA'],
+            platform=['PacBio'],
+            method=['long', 'short']
+        ),
+        expand(
+            rules.benchmark_task1.output,
+            tool=['talon'],
+            specie=['mouse'],
+            sample=['ES'],
+            library_prep=['cDNA', 'dRNA'],
+            platform=['ONT'],
+            method=['long', 'short']
+        )
 
         # dynamic(expand(config['transcriptclean']['sam_clean_batch'],
-        #                encode_id='ENCFF961HLO', method='long', batch_id='{batch_id}'))
+        #                encode_id='ENCFF232YSU', method='long', batch_id='{batch_id}'))
 
         # expand(
         #     rules.benchmark_task1.output,
         #     tool=['talon'],
         #     specie=['human'],
-        #     sample=['H1mix'],
+        #     sample=['WTC11', 'H1mix'],
         #     library_prep=['cDNA', 'CapTrap'],
         #     platform=['PacBio'],
         #     method=['long', 'short']
@@ -119,8 +117,58 @@ rule all:
         #     rules.benchmark_task1.output,
         #     tool=['talon'],
         #     specie=['human'],
-        #     sample=['WTC11'],
-        #     library_prep=['dRNA', 'R2C2', 'cDNA'],
+        #     sample=['WTC11', 'H1mix'],
+        #     library_prep=['cDNA', 'dRNA'],
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task2.output,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11', 'H1mix'],
+        #     library_prep=['cDNA', 'CapTrap'],
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task2.output,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11', 'H1mix'],
+        #     library_prep=['cDNA', 'dRNA'],
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # ),
+
+        # mouse
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=['cDNA', 'dRNA'],
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task2.output,
+        #     tool=['talon'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=['cDNA', 'CapTrap'],
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task2.output,
+        #     tool=['talon'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=['cDNA', 'dRNA'],
         #     platform=['ONT'],
         #     method=['long', 'short']
         # )
+        #
+        # dynamic(expand(config['transcriptclean']['sam_clean_batch'],
+        #                encode_id='ENCFF961HLO', method='long', batch_id='{batch_id}'))
