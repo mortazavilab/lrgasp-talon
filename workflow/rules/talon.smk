@@ -25,7 +25,6 @@ rule talon_label_reads:
 
 def sam_read_label(wildcards):
     df = read_data_matrix(config['encode']['data_matrix'])
-
     df = df[
         (df['species'] == wildcards['specie']) &
         (df['sample'] == wildcards['sample']) &

@@ -34,6 +34,18 @@ def gtf(wildcards):
         raise ValueError('gtf cannot be determined from wildcards.')
 
 
+def chrom_sizes(wildcards):
+    wildcards = dict(wildcards)
+    chrom_sizes = config['lrgasp']['chrom_sizes']
+    if 'specie' in wildcards:
+        return chrom_sizes.format(specie=wildcards['specie'])
+    elif 'encode_id' in wildcards:
+        row = _get_row(wildcards['encode_id'])
+        return chrom_sizes.format(specie=row['species'])
+    else:
+        raise ValueError('gtf cannot be determined from wildcards.')
+
+
 # def fastq_files(wildcards):
 #     df = read_data_matrix(config['encode']['data_matrix'], wildcards)
 #     return [
@@ -59,116 +71,205 @@ def gtf(wildcards):
 #         for i, row in df.iterrows()
 #     ]
 
+df = read_data_matrix(config['encode']['data_matrix'])
+df_r2c2 = df[
+    (df['file_contents'] == 'reads') &
+    (df['library_prep'] == 'R2C2')
+].reset_index().groupby(['species', 'sample', 'replicate'])[['file_acc']] \
+    .agg(list).reset_index(['replicate', 'species'], drop=True)
+
 
 include: "./rules/download.smk"
 include: "./rules/align.smk"
 # include: "./rules/stringtie.smk"
 include: "./rules/transcriptclean.smk"
 include: "./rules/talon.smk"
+include: "./rules/lapa.smk"
 include: "./rules/benchmark.smk"
 
 
-# df = read_data_matrix(config['encode']['data_matrix'])
-# df = df[
-#     (df['species'] == 'human') &
-#     (df['sample'] == 'H1mix') &
-#     # (df['library_prep'] == 'cDNA') &
-#     (df['platform'] == 'ONT') &
-#     (df['file_type'] == 'fastq')
-# ]
+pb_library_prep = ['cDNA', 'CapTrap']
+ont_library_prep = ['cDNA', 'dRNA', 'CapTrap', 'R2C2']
 
-# config['transcriptclean']['sam']
-# method=['long', 'short']
-# ENCFF288PBL
+
 rule all:
     input:
         expand(
-            rules.benchmark_task1.output,
-            tool=['talon'],
-            specie=['mouse'],
-            sample=['ES'],
-            library_prep=['CapTrap', 'cDNA'],
+            [
+                config['benchmark_task1']['result_dir'],
+
+                # config['submission']['task1']['gtf'],
+                # config['submission']['task1']['read_map'],
+                # config['submission']['task1']['experiment'],
+                # config['submission']['task2']['expression'],
+                # config['submission']['task2']['experiment'],
+                # config['benchmark_task2']['result_dir'],
+            ],
+            tool=['talon'],  # 'talon_lapa'
+            specie=['human'],
+            sample=['humansimulation'],
+            library_prep=['cDNA'],
             platform=['PacBio'],
             method=['long', 'short']
         ),
         expand(
-            rules.benchmark_task1.output,
-            tool=['talon'],
+            [
+                config['benchmark_task1']['result_dir'],
+                config['submission']['task1']['gtf'],
+                config['submission']['task1']['read_map'],
+                config['submission']['task1']['experiment'],
+                config['submission']['task2']['expression'],
+                config['submission']['task2']['experiment'],
+                config['benchmark_task2']['result_dir'],
+            ],
+            tool=['talon'],  # 'talon_lapa'
             specie=['mouse'],
-            sample=['ES'],
-            library_prep=['cDNA', 'dRNA'],
-            platform=['ONT'],
+            sample=['mousesimulation'],
+            library_prep=['cDNA'],
+            platform=['PacBio'],
             method=['long', 'short']
-        )
-
-        # dynamic(expand(config['transcriptclean']['sam_clean_batch'],
-        #                encode_id='ENCFF232YSU', method='long', batch_id='{batch_id}'))
+        ),
 
         # expand(
-        #     rules.benchmark_task1.output,
-        #     tool=['talon'],
+        #     [
+        #         config['submission']['task1']['entry'],
+        #         config['submission']['task2']['entry']
+        #     ],
+        #     tool='talon_lapa',
+        #     method=['short', 'long']
+        # ),
+        # expand(
+        #     [
+        #         config['submission']['task1']['gtf'],
+        #         config['submission']['task1']['read_map'],
+        #         config['submission']['task1']['experiment'],
+        #         config['submission']['task2']['expression'],
+        #         config['submission']['task2']['experiment'],
+        #         config['benchmark_task1']['result_dir'],
+        #         config['benchmark_task2']['result_dir'],
+        #     ],
+        #     tool=['talon', 'talon_lapa'],
         #     specie=['human'],
         #     sample=['WTC11', 'H1mix'],
-        #     library_prep=['cDNA', 'CapTrap'],
+        #     library_prep=pb_library_prep,
         #     platform=['PacBio'],
         #     method=['long', 'short']
         # ),
         # expand(
-        #     rules.benchmark_task1.output,
-        #     tool=['talon'],
+        #     [
+        #         config['submission']['task1']['gtf'],
+        #         config['submission']['task1']['read_map'],
+        #         config['submission']['task1']['experiment'],
+        #         config['submission']['task2']['expression'],
+        #         config['submission']['task2']['experiment'],
+        #         config['benchmark_task1']['result_dir'],
+        #         config['benchmark_task2']['result_dir'],
+        #     ],
+        #     tool=['talon', 'talon_lapa'],
         #     specie=['human'],
         #     sample=['WTC11', 'H1mix'],
-        #     library_prep=['cDNA', 'dRNA'],
+        #     library_prep=ont_library_prep,
         #     platform=['ONT'],
         #     method=['long', 'short']
         # ),
         # expand(
-        #     rules.benchmark_task2.output,
-        #     tool=['talon'],
-        #     specie=['human'],
-        #     sample=['WTC11', 'H1mix'],
-        #     library_prep=['cDNA', 'CapTrap'],
+        #     [
+        #         config['submission']['task1']['gtf'],
+        #         config['submission']['task1']['read_map'],
+        #         config['submission']['task1']['experiment'],
+        #         config['submission']['task2']['expression'],
+        #         config['submission']['task2']['experiment'],
+        #         config['benchmark_task1']['result_dir'],
+        #         config['benchmark_task2']['result_dir'],
+        #     ],
+        #     tool=['talon', 'talon_lapa'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=pb_library_prep,
         #     platform=['PacBio'],
         #     method=['long', 'short']
         # ),
         # expand(
-        #     rules.benchmark_task2.output,
-        #     tool=['talon'],
-        #     specie=['human'],
-        #     sample=['WTC11', 'H1mix'],
-        #     library_prep=['cDNA', 'dRNA'],
-        #     platform=['ONT'],
-        #     method=['long', 'short']
-        # ),
-
-        # mouse
-        # expand(
-        #     rules.benchmark_task1.output,
-        #     tool=['talon'],
+        #     [
+        #         config['submission']['task1']['gtf'],
+        #         config['submission']['task1']['read_map'],
+        #         config['submission']['task1']['experiment'],
+        #         config['submission']['task2']['expression'],
+        #         config['submission']['task2']['experiment'],
+        #         config['benchmark_task1']['result_dir'],
+        #         config['benchmark_task2']['result_dir'],
+        #     ],
+        #     tool=['talon', 'talon_lapa'],
         #     specie=['mouse'],
         #     sample=['ES'],
-        #     library_prep=['cDNA', 'dRNA'],
-        #     platform=['ONT'],
-        #     method=['long', 'short']
-        # ),
-        # expand(
-        #     rules.benchmark_task2.output,
-        #     tool=['talon'],
-        #     specie=['mouse'],
-        #     sample=['ES'],
-        #     library_prep=['cDNA', 'CapTrap'],
-        #     platform=['PacBio'],
-        #     method=['long', 'short']
-        # ),
-        # expand(
-        #     rules.benchmark_task2.output,
-        #     tool=['talon'],
-        #     specie=['mouse'],
-        #     sample=['ES'],
-        #     library_prep=['cDNA', 'dRNA'],
+        #     library_prep=ont_library_prep,
         #     platform=['ONT'],
         #     method=['long', 'short']
         # )
-        #
-        # dynamic(expand(config['transcriptclean']['sam_clean_batch'],
-        #                encode_id='ENCFF961HLO', method='long', batch_id='{batch_id}'))
+
+        # expand(
+        #     [config['submission']['task1']['gtf'],
+        #         config['submission']['task1']['read_map']],
+        #     tool=['talon', 'talon_lapa'],
+        #     specie=['human'],
+        #     sample=['WTC11', 'H1mix'],
+        #     library_prep=pb_library_prep,
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+
+        # expand(
+        #     ,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11', 'H1mix'],
+        #     library_prep=pb_library_prep,
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     ,
+        #     tool=['talon'],
+        #     specie=['human'],
+        #     sample=['WTC11', 'H1mix'],
+        #     library_prep=ont_library_prep,
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # ),
+        # # mouse
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon', 'talon_lapa'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=ont_library_prep,
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task1.output,
+        #     tool=['talon', 'talon_lapa'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=pb_library_prep,
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task2.output,
+        #     tool=['talon'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=pb_library_prep,
+        #     platform=['PacBio'],
+        #     method=['long', 'short']
+        # ),
+        # expand(
+        #     rules.benchmark_task2.output,
+        #     tool=['talon'],
+        #     specie=['mouse'],
+        #     sample=['ES'],
+        #     library_prep=ont_library_prep,
+        #     platform=['ONT'],
+        #     method=['long', 'short']
+        # ),

@@ -4,6 +4,23 @@ rule submission_task1_experiment:
         data_matrix = config['encode']['data_matrix']
     output:
         json = config['submission']['task1']['experiment']
+    params:
+        challange_id = 'iso_detect_ref'
+    threads: 1
+    resources:
+        mem_mb = 4000
+    script:
+        "../scripts/submission_structure_task1.py"
+
+
+rule submission_task2_experiment:
+    input:
+        gtf = config['tools']['gtf'],
+        data_matrix = config['encode']['data_matrix']
+    output:
+        json = config['submission']['task2']['experiment']
+    params:
+        challange_id = 'iso_quant'
     threads: 1
     resources:
         mem_mb = 4000
@@ -15,12 +32,52 @@ rule benchmark_task1_entry:
     input:
         data_matrix = config['encode']['data_matrix']
     output:
-        config['submission']['task1']['entry']
+        entry = config['submission']['task1']['entry']
+    params:
+        challange_id = 'iso_detect_ref'
     threads: 1
     resources:
         mem_mb = 4000
-    run:
-        "../scripts/submission_task1_entry.py"
+    script:
+        "../scripts/submission_entry.py"
+
+rule benchmark_task2_entry:
+    input:
+        data_matrix = config['encode']['data_matrix']
+    output:
+        entry = config['submission']['task2']['entry']
+    params:
+        challange_id = 'iso_quant'
+    threads: 1
+    resources:
+        mem_mb = 4000
+    script:
+        "../scripts/submission_entry.py"
+
+
+rule benchmark_task1_gtf:
+    input:
+        gtf = config['tools']['gtf']
+    output:
+        gtf = config['submission']['task1']['gtf']
+    threads: 1
+    resources:
+        mem_mb = 4000
+    shell:
+        "cat {input.gtf} | gzip > {output.gtf}"
+
+
+rule benchmark_task1_read_map:
+    input:
+        read_annot = config['talon']['read_annot'],
+        gtf = config['submission']['task1']['gtf']
+    output:
+        read_map = config['submission']['task1']['read_map']
+    threads: 1
+    resources:
+        mem_mb = 16000
+    script:
+        "../scripts/submission_read_map.py"
 
 
 rule benchmark_task1:
@@ -67,6 +124,8 @@ rule submission_task2_expression:
         abundance = config['talon']['abundance']
     output:
         expression = config['submission']['task2']['expression']
+    params:
+        r2c2 = df_r2c2
     threads: 1
     resources:
         mem_mb = 4000
@@ -100,3 +159,35 @@ rule benchmark_task2:
             --num_method Single \
             --num_samples Multi'
         )
+
+
+# def igv_tracks(wildcards):
+#     df = read_data_matrix(config['encode']['data_matrix'])
+#     df = df[df['sample'] == wildcards['sample']]
+
+#     tracks = [gtf(wildcards)]
+
+#     for i in ['PacBio', 'ONT']:
+#         tracks = [*tracks, *expand(
+#             config['tools']['gtf'],
+#             sample=wildcards['sample'],
+#             method=['long', 'short'],
+#             library_prep=df['library_prep'].unique(),
+#             specie=wildcards['specie'],
+#             tool=['talon', 'talon_lapa'],
+#             platform=i
+#         )]
+
+#     return tracks
+
+
+# rule igv_report:
+#     input:
+#         fasta = fasta,
+#         tracks = igv_tracks
+#     output:
+#         "data/processed/igv/{specie}_{sample}.html"
+#     log:
+#         "logs/igv/{specie}_{sample}_igv-report.log"
+#     wrapper:
+#         "0.78.0/bio/igv-reports"

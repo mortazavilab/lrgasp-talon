@@ -32,10 +32,10 @@ if wildcards.method == 'short':
     _df = df[
         (df['species'] == wildcards['specie']) &
         (df['sample'] == wildcards['sample']) &
-        (df['library_prep'] == wildcards['library_prep']) &
         (df['platform'] == 'Illumina')
     ]
     libraries = [*libraries, *_df.index.tolist(), *_df['paired_acc'].tolist()]
+    platform.append('Illumina')
 
 if wildcards.method == 'long':
     data_category = 'long_only'
@@ -43,8 +43,8 @@ elif wildcards.method == 'short':
     data_category = 'long_short'
 
 submission = {
-    "experiment_id": f'{wildcards.tool}_{wildcards.method}_{wildcards.specie}_{wildcards.sample}_{wildcards.library_prep}_{wildcards.platform}',
-    "challenge_id": "iso_detect_ref",
+    "experiment_id": f'{wildcards.specie}_{wildcards.sample}_{wildcards.library_prep}_{wildcards.platform}',
+    "challenge_id": snakemake.params['challange_id'],
     "description": f'{wildcards.tool}_{wildcards.method}_{wildcards.specie}_{wildcards.sample}_{wildcards.library_prep}_{wildcards.platform}',
     "notes": "",
     "species": wildcards.specie,
@@ -59,6 +59,13 @@ submission = {
             "description": "A technology-agnostic long-read analysis pipeline for transcriptome discovery and quantification",
             "version": "4.0.0",
             "url": "https://github.com/mortazavilab/lrgasp-talon",
+            "config": "All parameters are defined workflow in the github link"
+        },
+        {
+            "name": "LAPA",
+            "description": "Alternative polyadenylation detection from diverse data sources such as 3'-seq, long-read and short-reads.",
+            "version": "0.0.2",
+            "url": "https://github.com/mortazavilab/lapa",
             "config": "All parameters are defined workflow in the github link"
         }
     ]

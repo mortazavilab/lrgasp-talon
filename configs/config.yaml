@@ -40,7 +40,8 @@ lrgasp:
       gtf: data/raw/lrgasp/references/lrgasp_sirvs4.gtf
 
   annotation_bed: data/raw/processed/common/{specie}_annotation.bed
-      
+  chrom_sizes: data/raw/common/{specie}.chrom_sizes
+  
   simulation:
     illumina_fq1: data/raw/lrgasp/simulation/{specie}_simulation/{specie}.Illumina.simulated_1.fq
     illumina_fq2: data/raw/lrgasp/simulation/{specie}_simulation/{specie}.Illumina.simulated_2.fq
@@ -106,12 +107,16 @@ talon:
   gtf: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon.gtf
   abundance: data/processed/talon/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon_abundance_filtered.tsv
 
+lapa:
+  result_dir: data/processed/lapa/{specie}_{sample}_{library_prep}_{platform}_{method}/
+  gtf: data/processed/talon_lapa/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon_lapa.gtf
+
 stringtie:
   gtf_raw: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie_raw.gtf
   gtf: data/processed/stringtie/{specie}/{platform}/simulated_{specie}_{platform}_stringtie.gtf
 
 tools:
-  gtf: data/processed/{tool}/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_talon.gtf
+  gtf: data/processed/{tool}/{specie}/{sample}/{platform}/{library_prep}/{method}/{specie}_{sample}_{library_prep}_{platform}_{method}_{tool}.gtf
 
 cupcake_path: /data/homezvol2/mcelik/Projects/cDNA_Cupcake/
 sqanti3_lrgasp_path: /data/homezvol2/mcelik/Projects/lrgasp-challenge-1-evaluation/sqanti3_lrgasp.challenge1.py
@@ -121,6 +126,8 @@ submission:
     dir: data/processed/results/iso_detect_ref_{tool}_{method}/
     entry: data/processed/results/iso_detect_ref_{tool}_{method}/entry.json
     experiment: data/processed/results/iso_detect_ref_{tool}_{method}/{specie}_{sample}_{library_prep}_{platform}/experiment.json
+    gtf: data/processed/results/iso_detect_ref_{tool}_{method}/{specie}_{sample}_{library_prep}_{platform}/models.gtf.gz
+    read_map: data/processed/results/iso_detect_ref_{tool}_{method}/{specie}_{sample}_{library_prep}_{platform}/read_model_map.tsv.gz
 
   task2:
     dir: data/processed/results/iso_quant_{tool}_{method}/

@@ -119,17 +119,21 @@ rule transcriptclean:
 rule transcriptclean_merge:
     input:
         batches = dynamic(config['transcriptclean']['sam_clean_batch'])
-    params:
-        tmpdir = config['tmpdir'] + 'samtools'
     output:
         sam = config['transcriptclean']['sam']
     threads: 4
     resources:
         mem_mb = 32000
     run:
-        batches_txt = f'{resources.tmpdir}/{wildcards.encode_id}_{wildcards.method}_batches.txt'
+        import os
+        tmpdir = f'{resources.tmpdir}/{wildcards.encode_id}_{wildcards.method}'
+        if os.path.exists(tmpdir):
+            shell('rm -rf {tmpdir}')
+        os.mkdir(tmpdir)
+
+        batches_txt = f'{tmpdir}/batches.txt'
         with open(batches_txt, 'w') as f:
             for line in input.batches:
                 f.write(line + '\n')
-        shell(f"samtools merge - -b {batches_txt} --no-PG | samtools sort -@ {threads} -T {params.tmpdir} | samtools view -h > {output.sam}")
-        shell(f"rm {batches_txt}")
+        shell(f"samtools merge - -b {batches_txt} --no-PG | samtools sort -@ {threads} -T {tmpdir} | samtools view -h > {output.sam}")
+        shell(f'rm -rf {tmpdir}')
